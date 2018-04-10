@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>&lt;material-paper-color-picker&gt; test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../color-selector.html">
+</head>
+
+<body>
+
+    <test-fixture id="BasicColorSelector">
+        <template>
+            <color-selector>
+            </color-selector>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="CustomColorSelectorSecondary">
+        <template>
+            <color-selector name="custom" target="secondary" normal-color="red" normal-font-color="black" normal-head-font-color="black"
+                light-color="lightred" light-font-color="darkgrey" light-head-font-color="darkgrey" dark-color="darkred" dark-font-color="grey"
+                dark-head-font-color="grey">
+            </color-selector>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="CustomColorSelectorPrimary">
+        <template>
+            <color-selector name="custom" target="primary" normal-color="red" normal-font-color="black" normal-head-font-color="black"
+                light-color="lightred" light-font-color="darkgrey" light-head-font-color="darkgrey" dark-color="darkred" dark-font-color="grey"
+                dark-head-font-color="grey">
+            </color-selector>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('<material-paper-color-picker>', () => {
+            test('instantiating the element with default properties works', () => {
+                const element = fixture('BasicColorSelector');
+                expect(element.name).to.be.a('string');
+                expect(element.target).to.be.a('string');
+                expect(element.normalColor).to.be.a('string');
+                expect(element.darkColor).to.be.a('string');
+                expect(element.lightColor).to.be.a('string');
+                expect(element.normalFontColor).to.be.a('string');
+                expect(element.normalHeadFontColor).to.be.a('string');
+                expect(element.darkHeadFontColor).to.be.a('string');
+                expect(element.lightHeadFontColor).to.be.a('string');
+            });
+
+            test('Setting the name works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.name, 'custom');
+            });
+
+            test('Setting the target works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.target, 'secondary');
+            });
+
+            test('Setting the normalColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.normalColor, 'red');
+            });
+
+            test('Setting the darkColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.darkColor, 'darkred');
+            });
+
+            test('Setting the lightColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.lightColor, 'lightred');
+            });
+
+            test('Setting the normalFontColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.normalFontColor, 'black');
+            });
+
+            test('Setting the darkFontColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.darkFontColor, 'grey');
+            });
+
+            test('Setting the lightFontColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.lightFontColor, 'darkgrey');
+            });
+
+            test('Setting the normalHeadFontColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.normalHeadFontColor, 'black');
+            });
+
+            test('Setting the darkHeadFontColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.darkHeadFontColor, 'grey');
+            });
+
+            test('Setting the lightHeadFontColor works', () => {
+                const element = fixture('CustomColorSelectorSecondary');
+                assert.equal(element.lightHeadFontColor, 'darkgrey');
+            });
+
+            test('Clicking the color will set the HTML { --secondary-color-normal }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let colorNormal = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color-normal');
+                    assert.equal(colorNormal, 'red');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-color-light }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let colorLight = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color-light');
+                    assert.equal(colorLight, 'lightred');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-color-dark }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let colorDark = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color-dark');
+                    assert.equal(colorDark, 'darkred');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-text-normal }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let fontNormal = getComputedStyle(document.documentElement).getPropertyValue('--secondary-text-normal');
+                    assert.equal(fontNormal, 'black');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-text-light }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let fontLight = getComputedStyle(document.documentElement).getPropertyValue('--secondary-text-light');
+                    assert.equal(fontLight, 'darkgrey');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-text-dark }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let fontDark = getComputedStyle(document.documentElement).getPropertyValue('--secondary-text-dark');
+                    assert.equal(fontDark, 'grey');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-head-text-normal }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let fontHeadNormal = getComputedStyle(document.documentElement).getPropertyValue('--secondary-head-text-normal');
+                    assert.equal(fontHeadNormal, 'black');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-head-text-light }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let fontHeadLight = getComputedStyle(document.documentElement).getPropertyValue('--secondary-head-text-light');
+                    assert.equal(fontHeadLight, 'darkgrey');
+                    done();
+                })
+            });
+
+            test('Clicking the color will set the HTML { --secondary-head-text-dark }', (done) => {
+                const element = fixture('CustomColorSelectorSecondary');
+                element.$.color.click();
+
+                flush(function () {
+                    let fontHeadDark = getComputedStyle(document.documentElement).getPropertyValue('--secondary-head-text-dark');
+                    assert.equal(fontHeadDark, 'grey');
+                    done();
+                })
+            });
+
+            test('Clicking the color with a primary target will set the HTML { --primary-color-normal }', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                element.$.color.click();
+
+                flush(function () {
+                    let colorNormal = getComputedStyle(document.documentElement).getPropertyValue('--primary-color-normal');
+                    assert.equal(colorNormal, 'red');
+                    done();
+                })
+            });
+        });
+    </script>
+
+</body>
+
+</html>

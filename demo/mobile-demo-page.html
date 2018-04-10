@@ -1,0 +1,320 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+
+<dom-module id="mobile-demo-page">
+    <template>
+        <style>
+            :host {
+                width: 600px;
+                height: 400px;
+                margin: 20px;
+                display: block;
+                margin: 0 auto;
+            }
+
+            section * {
+                margin: 0;
+                padding: 0;
+                color: inherit;
+                text-decoration: none;
+                list-style: none;
+                box-sizing: border-box;
+            }
+
+            .example-layout {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .example-layout .app {
+                height: 400px;
+                width: 250px;
+                box-shadow: 0 0 4px -1px #000;
+                position: relative;
+            }
+
+            .app.nav {
+                float: left;
+            }
+
+            header {
+                background-color: var(--primary-color-normal);
+                color: var(--primary-text-normal);
+            }
+
+            header h1 {
+                padding: 5px;
+                background-color: var(--primary-color-dark);
+                color: var(--primary-head-text-dark);
+            }
+
+            .image {
+                padding: 5px;
+                display: flex;
+            }
+
+            .image img {
+                margin: auto auto;
+                box-shadow: 0 0 2px 0 #000;
+            }
+
+            nav ul {
+                display: flex;
+                flex-direction: row;
+                background-color: var(--primary-color-light);
+                color: var(--primary-text-light);
+            }
+
+            ul li {
+                position: relative;
+            }
+
+            a {
+                padding: 10px;
+                display: block;
+                border-bottom: 2px solid transparent;
+            }
+
+            a.active {
+                border-color: var(--secondary-color-normal);
+            }
+
+            a:hover {
+                box-shadow: 0 0 3px -1px #000;
+            }
+
+            main {
+                padding: 10px;
+                position: relative;
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                background-color: var(--primary-color-light);
+                color: var(--primary-text-light);
+            }
+
+            footer h2 {
+                background-color: var(--primary-color-normal);
+                color: var(--primary-head-text-normal);
+                padding: 5px;
+            }
+
+            footer p {
+                padding: 5px;
+            }
+
+            header h1 paper-icon-button {
+                width: 25px;
+                height: 25px;
+            }
+
+            main paper-icon-button {
+                position: absolute;
+                top: 45px;
+                right: 10px;
+                background-color: var(--secondary-color-normal);
+                color: var(--secondary-text-normal);
+                border-radius: 50%;
+            }
+
+            .app.side {
+                float: right;
+            }
+
+            aside {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.6);
+                z-index: 10000;
+            }
+
+            aside section {
+                background-color: white;
+                position: relative;
+                width: 80%;
+                height: 100%;
+                box-shadow: 2px 0 2px -2px #000;
+            }
+
+            aside header {
+                font-size: 20px;
+            }
+
+            aside header h1 {
+                background-color: var(--secondary-color-dark);
+                color: var(--secondary-head-text-dark);
+            }
+
+            aside header .image {
+                background-color: var(--secondary-color-normal);
+                color: var(--secondary-text-normal);
+            }
+
+            aside nav ul {
+                background-color: white;
+                color: black;
+                flex-direction: column;
+            }
+
+            aside footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                background-color: var(--secondary-color-light);
+                color: var(--secondary-text-light);
+            }
+
+            aside footer h2 {
+                background-color: var(--secondary-color-normal);
+                color: var(--secondary-head-text-normal);
+            }
+        </style>
+
+        <section class="example-layout">
+            <div class="app nav">
+                <header>
+                    <h1>
+                        <paper-icon-button icon="menu"></paper-icon-button>
+                        header
+                    </h1>
+                    <div class="image">
+                        <img src="https://placem.at/things?w=240&h=130&txt=&random=2" alt="placemat">
+                    </div>
+                </header>
+                <nav>
+                    <ul>
+                        <li>
+                            <a class="active" href="#">one</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                        <li>
+                            <a href="#">two</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                        <li>
+                            <a href="#">three</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                        <li>
+                            <a href="#">four</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                    </ul>
+                </nav>
+                <main>
+                    <p>Lorem ipsum dolor sit amet consectetur</p>
+
+                    <paper-icon-button icon="add"></paper-icon-button>
+
+                </main>
+                <footer>
+                    <h2>footer</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur</p>
+                </footer>
+            </div>
+            <div class="app side">
+                <header>
+                    <h1>
+                        <paper-icon-button icon="menu"></paper-icon-button>
+                        header
+                    </h1>
+                    <div class="image">
+                        <img src="https://placem.at/things?w=240&h=130&txt=&random=2" alt="placemat">
+                    </div>
+                </header>
+                <aside>
+                    <section>
+                        <header>
+                            <h1>
+                                header
+                            </h1>
+                            <div class="image">
+                                <img src="https://placem.at/things?w=190&h=100&txt=&random=9" alt="placemat">
+                            </div>
+                        </header>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a class="active" href="#">one</a>
+                                    <paper-ripple></paper-ripple>
+                                </li>
+                                <li>
+                                    <a href="#">two</a>
+                                    <paper-ripple></paper-ripple>
+                                </li>
+                                <li>
+                                    <a href="#">three</a>
+                                    <paper-ripple></paper-ripple>
+                                </li>
+                                <li>
+                                    <a href="#">four</a>
+                                    <paper-ripple></paper-ripple>
+                                </li>
+                            </ul>
+                        </nav>
+                        <footer>
+                            <h2>footer</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur</p>
+                        </footer>
+                    </section>
+                </aside>
+                <nav>
+                    <ul>
+                        <li>
+                            <a class="active" href="#">one</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                        <li>
+                            <a href="#">two</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                        <li>
+                            <a href="#">three</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                        <li>
+                            <a href="#">four</a>
+                            <paper-ripple></paper-ripple>
+                        </li>
+                    </ul>
+                </nav>
+                <main>
+                    <p>Lorem ipsum dolor sit amet consectetur</p>
+
+                    <paper-icon-button class="menubutton1" icon="add" on-click="toggleColorPicker"></paper-icon-button>
+
+                </main>
+                <footer>
+                    <h2>footer</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur</p>
+                </footer>
+            </div>
+        </section>
+
+    </template>
+    <script>
+        /**
+         * `mobile-demo-page`
+         * Mobile page for demo purposes
+         *
+         * @customElement
+         * @polymer
+         */
+        class MobileDemoPage extends Polymer.Element {
+            static get is() { return 'mobile-demo-page'; }
+            static get properties() {
+                return {
+                }
+            }
+        }
+
+        window.customElements.define(MobileDemoPage.is, MobileDemoPage);
+    </script>
+</dom-module>

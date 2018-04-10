@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>&lt;material-paper-color-picker&gt; test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../material-paper-color-picker.html">
+</head>
+
+<body>
+
+  <test-fixture id="BasicColorPicker">
+    <template>
+      <material-paper-color-picker></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="PrimaryColorPicker">
+    <template>
+      <material-paper-color-picker secondary-colors="[]"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="SecondaryColorPicker">
+    <template>
+      <material-paper-color-picker primary-colors="[]"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="EmptyColorPicker">
+    <template>
+      <material-paper-color-picker primary-colors="[]"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<material-paper-color-picker>', () => {
+
+      test('instantiating the element with default properties works', (done) => {
+        const element = fixture('BasicColorPicker');
+
+        flush(function () {
+          const colorContainers = element.shadowRoot.querySelectorAll('.colors');
+          assert.equal(colorContainers.length, 2);
+
+          const colorPicker = element.shadowRoot.querySelector('.color-picker');
+          expect(colorPicker.getAttribute('size')).to.equal('large-false')
+          done();
+        });
+      });
+
+      test('instantiating the element with default properties gives all colors', (done) => {
+        const element = fixture('BasicColorPicker');
+
+        flush(function () {
+          const colorElements = element.shadowRoot.querySelectorAll('color-selector');
+          assert.equal(colorElements.length, 40);
+          done();
+        });
+      });
+
+      test('instantiating the element with only primary colors creates one .colors container', (done) => {
+        const element = fixture('PrimaryColorPicker');
+
+        flush(function () {
+          const colorContainers = element.shadowRoot.querySelectorAll('.colors');
+          assert.equal(colorContainers.length, 1);
+          done();
+        });
+      });
+
+      test('instantiating the element with only primary colors sets .color-picker[size="large-true"]', (done) => {
+        const element = fixture('PrimaryColorPicker');
+
+        flush(function () {
+          const colorPicker = element.shadowRoot.querySelector('.color-picker');
+          expect(colorPicker.getAttribute('size')).to.equal('large-true')
+          done();
+        });
+      });
+
+      test('instantiating the element with only primary colors gives only primary colors', (done) => {
+        const element = fixture('PrimaryColorPicker');
+
+        flush(function () {
+          const colorElements = element.shadowRoot.querySelectorAll('color-selector');
+          assert.equal(colorElements.length, 20);
+          done();
+        });
+      });
+
+      test('instantiating the element with only secondary colors creates only one .colors container', (done) => {
+        const element = fixture('SecondaryColorPicker');
+
+        flush(function () {
+          const colorContainers = element.shadowRoot.querySelectorAll('.colors');
+          assert.equal(colorContainers.length, 1);
+          done();
+        });
+      });
+
+      test('instantiating the element with only secondary colors  sets .color-picker[size="large-true"]', (done) => {
+        const element = fixture('SecondaryColorPicker');
+
+        flush(function () {
+          const colorPicker = element.shadowRoot.querySelector('.color-picker');
+          expect(colorPicker.getAttribute('size')).to.equal('large-true')
+          done();
+        });
+      });
+
+      test('instantiating the element with only secondary colors gives only secondary colors', (done) => {
+        const element = fixture('SecondaryColorPicker');
+
+        flush(function () {
+          const colorElements = element.shadowRoot.querySelectorAll('color-selector');
+          assert.equal(colorElements.length, 20);
+          done();
+        });
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

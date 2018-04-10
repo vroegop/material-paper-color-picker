@@ -1,0 +1,1034 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./color-selector.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="material-paper-color-picker">
+  <template>
+    <style>
+      :host {
+        --icon-color: #000000;
+        --icon-background-color: rgba(0, 0, 0, 0.1);
+        --icon-border-radius: 50%;
+        --popup-background-color: #ffffff;
+        --popup-text-color: #000000;
+        display: inline-block;
+      }
+
+      .color-adjuster {
+        position: relative;
+        color: var(--icon-color);
+        background-color: var(--icon-background-color);
+        border-radius: var(--icon-border-radius);
+      }
+
+      .color-picker {
+        position: absolute;
+        top: 100%;
+
+        padding: 5px;
+        overflow: hidden;
+        visibility: hidden;
+        border-radius: 5px;
+        background-color: var(--popup-background-color);
+        color: var(--popup-text-color);
+        z-index: 100000;
+        box-shadow: 0 0 6px -1px #000;
+
+        animation-duration: 0.3s;
+        animation-fill-mode: forwards;
+      }
+
+      .color-adjuster[color-picker="hidden"] .color-picker {
+        animation-name: disappear;
+      }
+
+      .color-adjuster[color-picker="visible"] .color-picker {
+        animation-name: appear;
+      }
+
+      .color-picker.left {
+        right: 0;
+      }
+
+      .color-picker.right {
+        left: 0;
+      }
+
+      .color-picker.center {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      p {
+        padding: 0;
+        margin: 0;
+        height: 20px;
+        line-height: 20px;
+      }
+
+      .colors {
+        height: 140px;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: left;
+      }
+
+      .color-picker[size="large-true"] .colors {
+        height: 300px;
+      }
+
+      .menubutton {
+        transition: all 0.3s;
+      }
+
+      .color-adjuster[color-picker="visible"] .menubutton {
+        transform: rotate(180deg);
+      }
+
+      @keyframes appear {
+        0% {
+          visibility: hidden;
+          width: 5px;
+          height: 5px;
+        }
+        100% {
+          width: 250px;
+          height: 320px;
+          visibility: visible;
+        }
+      }
+
+      @keyframes disappear {
+        0% {
+          visibility: visible;
+          width: 250px;
+          height: 320px;
+        }
+        100% {
+          width: 5px;
+          height: 5px;
+          visibility: hidden;
+        }
+      }
+    </style>
+
+    <div class="color-adjuster" color-picker$="[[cpOpen]]">
+      <paper-icon-button class="menubutton" icon="opacity" on-click="toggleColorPicker"></paper-icon-button>
+
+      <div class="color-picker" id="colorPicker" size$="large-[[!_bothColors()]]">
+        <template is="dom-if" if="{{primaryColors.length}}">
+          <p>[[primaryTitle]]</p>
+          <div class="colors">
+            <template is="dom-repeat" items="{{_primaryColors()}}" as="color">
+              <color-selector name="[[color.name]]" target="primary" normal-color="[[color.normal.clr]]" normal-font-color="[[color.normal.sTxt]]"
+                normal-head-font-color="[[color.normal.lTxt]]" light-color="[[color.light.clr]]" light-font-color="[[color.light.sTxt]]"
+                light-head-font-color="[[color.light.lTxt]]" dark-color="[[color.dark.clr]]" dark-font-color="[[color.dark.sTxt]]"
+                dark-head-font-color="[[color.dark.lTxt]]"></color-selector>
+            </template>
+            <slot name="primary"></slot>
+          </div>
+        </template>
+        <template is="dom-if" if="{{secondaryColors.length}}">
+          <p>[[secondaryTitle]]</p>
+          <div class="colors">
+            <template is="dom-repeat" items="{{_secondaryColors()}}" as="color">
+              <color-selector name="[[color.name]]" target="secondary" normal-color="[[color.normal.clr]]" normal-font-color="[[color.normal.sTxt]]"
+                normal-head-font-color="[[color.normal.lTxt]]" light-color="[[color.light.clr]]" light-font-color="[[color.light.sTxt]]"
+                light-head-font-color="[[color.light.lTxt]]" dark-color="[[color.dark.clr]]" dark-font-color="[[color.dark.sTxt]]"
+                dark-head-font-color="[[color.dark.lTxt]]"></color-selector>
+            </template>
+            <slot name="secondary"></slot>
+          </div>
+        </template>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `material-paper-color-picker`
+     * Paper color picker including fonts
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class MaterialPaperColorPicker extends Polymer.Element {
+      static get is() { return 'material-paper-color-picker'; }
+      static get properties() {
+        return {
+          primaryTitle: {
+            type: String,
+            value: 'Primary colors'
+          },
+          secondaryTitle: {
+            type: String,
+            value: 'Secondary colors'
+          },
+          align: {
+            type: String
+          },
+          cpOpen: {
+            type: String,
+            value: ''
+          },
+          primaryColors: {
+            type: Array,
+            value: [
+              {
+                name: "red",
+                intens: "500",
+                dark: {
+                  clr: "#ba000d",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#f44336",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ff7961",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "pink",
+                intens: "500",
+                dark: {
+                  clr: "#b0003a",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#e91e63",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ff6090",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "purple",
+                intens: "500",
+                dark: {
+                  clr: "#6a0080",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#9c27b0",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#d05ce3",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "deep-purple",
+                intens: "500",
+                dark: {
+                  clr: "#320b86",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#673ab7",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#9a67ea",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "indigo",
+                intens: "500",
+                dark: {
+                  clr: "#002984",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#3f51b5",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#757de8",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "blue",
+                intens: "500",
+                dark: {
+                  clr: "#0069c0",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#2196f3",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#6ec6ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "light-blue",
+                intens: "500",
+                dark: {
+                  clr: "#007ac1",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#03a9f4",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#67daff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "cyan",
+                intens: "500",
+                dark: {
+                  clr: "#008ba3",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#00bcd4",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#62efff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "teal",
+                intens: "500",
+                dark: {
+                  clr: "#00675b",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#009688",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#52c7b8",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "green",
+                intens: "500",
+                dark: {
+                  clr: "#087f23",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#4caf50",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#80e27e",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "light-green",
+                intens: "500",
+                dark: {
+                  clr: "#5a9216",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#8bc34a",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#bef67a",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "lime",
+                intens: "500",
+                dark: {
+                  clr: "#99aa00",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#cddc39",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ffff6e",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "yellow",
+                intens: "500",
+                dark: {
+                  clr: "#c8b900",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#ffeb3b",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ffff72",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "amber",
+                intens: "500",
+                dark: {
+                  clr: "#c79100",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#ffc107",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#fff350",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "orange",
+                intens: "500",
+                dark: {
+                  clr: "#c66900",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#ff9800",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ffc947",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "deep-orange",
+                intens: "500",
+                dark: {
+                  clr: "#c41c00",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#ff5722",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ff8a50",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "brown",
+                intens: "500",
+                dark: {
+                  clr: "#4b2c20",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#795548",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#a98274",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "grey",
+                intens: "500",
+                dark: {
+                  clr: "#707070",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#9e9e9e",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#cfcfcf",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "blue-grey",
+                intens: "500",
+                dark: {
+                  clr: "#34515e",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#607d8b",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#8eacbb",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "grey",
+                intens: "900",
+                dark: {
+                  clr: "#000000",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#212121",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#484848",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+              },
+            ]
+          },
+          secondaryColors: {
+            type: Array,
+            value: [
+              {
+                name: "red",
+                intens: "a400",
+                dark: {
+                  clr: "#c4001d",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#ff1744",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ff616f",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "pink",
+                intens: "a400",
+                dark: {
+                  clr: "#bb002f",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#f50057",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ff5983",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "purple",
+                intens: "a400",
+
+                dark: {
+                  clr: "#9e00c5",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#d500f9",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ff5bff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "deep-purple",
+                intens: "a400",
+
+                dark: {
+                  clr: "#0100ca",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#651fff",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#a255ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "indigo",
+                intens: "a400",
+
+                dark: {
+                  clr: "#0031ca",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#3d5afe",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#8187ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "blue",
+                intens: "a400",
+
+                dark: {
+                  clr: "#004ecb",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#2979ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#75a7ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "light-blue",
+                intens: "a400",
+
+                dark: {
+                  clr: "#0081cb",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#00b0ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#69e2ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "cyan",
+                intens: "a400",
+
+                dark: {
+                  clr: "#00b2cc",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#00e5ff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#6effff",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "teal",
+                intens: "a400",
+
+                dark: {
+                  clr: "#00b686",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#1de9b6",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#6effe8",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "green",
+                intens: "a400",
+
+                dark: {
+                  clr: "#00b248",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#00e676",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#66ffa6",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "light-green",
+                intens: "a400",
+
+                dark: {
+                  clr: "#32cb00",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#76ff03",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#b0ff57",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "lime",
+                intens: "a400",
+
+                dark: {
+                  clr: "#90cc00",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#c6ff00",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#fdff58",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "yellow",
+                intens: "a400",
+
+                dark: {
+                  clr: "#c7b800",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#ffea00",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ffff56",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "amber",
+                intens: "a400",
+
+                dark: {
+                  clr: "#c79400",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#ffc400",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#fff64f",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "orange",
+                intens: "a400",
+
+                dark: {
+                  clr: "#c56200",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                normal: {
+                  clr: "#ff9100",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ffc246",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "deep-orange",
+                intens: "a400",
+
+                dark: {
+                  clr: "#c30000",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#ff3d00",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#ff7539",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "brown",
+                intens: "a400",
+
+                dark: {
+                  clr: "#4b2c20",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#795548",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#a98274",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "grey",
+                intens: "a400",
+
+                dark: {
+                  clr: "#707070",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#9e9e9e",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#cfcfcf",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "blue-grey",
+                intens: "a400",
+
+                dark: {
+                  clr: "#34515e",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#607d8b",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+                light: {
+                  clr: "#8eacbb",
+                  sTxt: "#000000",
+                  lTxt: "#000000"
+                },
+              },
+              {
+                name: "grey",
+                intens: "900",
+
+                dark: {
+                  clr: "#000000",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                normal: {
+                  clr: "#212121",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+                light: {
+                  clr: "#484848",
+                  sTxt: "#ffffff",
+                  lTxt: "#ffffff"
+                },
+              },
+            ]
+          }
+        };
+      }
+
+      _primaryColors() {
+        if (typeof this.primaryColors[0] === 'object') {
+          return this.primaryColors;
+        } else {
+          return [];
+        }
+      }
+
+      _secondaryColors() {
+        if (typeof this.secondaryColors[0] === 'object') {
+          return this.secondaryColors;
+        } else {
+          return [];
+        }
+      }
+
+      toggleColorPicker(event) {
+        event.stopPropagation();
+        this.cpOpen = this.cpOpen === 'visible' ? 'hidden' : 'visible';
+      }
+
+      initPickerButton() {
+        window.addEventListener("click", (e) => {
+          if (this.cpOpen === 'visible') {
+            this.toggleColorPicker(e);
+          }
+        });
+      }
+
+      setAlignStyle() {
+        let align;
+
+        if (typeof this.align !== 'string') {
+          align = 'center';
+        } else {
+          align = this.align.toLowerCase();
+        }
+
+        if (align !== 'left' && align !== 'right' && align !== 'center') {
+          align = 'center';
+        }
+
+        this.$.colorPicker.classList.add(align);
+      }
+
+      _bothColors() {
+        let primaryColors = this.primaryColors.length > 0 && this.primaryColors[0] !== false;
+        let secondaryColors = this.secondaryColors.length > 0 && this.secondaryColors[0] !== false;
+        return primaryColors && secondaryColors;
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+
+        this.initPickerButton();
+        this.setAlignStyle();
+      }
+    }
+
+    window.customElements.define(MaterialPaperColorPicker.is, MaterialPaperColorPicker);
+  </script>
+</dom-module>

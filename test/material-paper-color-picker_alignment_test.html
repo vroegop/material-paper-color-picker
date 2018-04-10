@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>&lt;material-paper-color-picker&gt; test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../material-paper-color-picker.html">
+</head>
+
+<body>
+
+  <test-fixture id="BasicColorPicker">
+    <template>
+      <material-paper-color-picker></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="BadAlignmentType">
+    <template>
+      <material-paper-color-picker align=null></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="BadAlignmentValue">
+    <template>
+      <material-paper-color-picker align="bottom"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="LeftAligned">
+    <template>
+      <material-paper-color-picker align="left"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="RightAligned">
+    <template>
+      <material-paper-color-picker align="right"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<material-paper-color-picker>', () => {
+
+      test('instantiating the element with default properties works', () => {
+        const element = fixture('BasicColorPicker');
+        assert.equal(element.tagName.toLowerCase(), 'material-paper-color-picker');
+      });
+
+      test('instantiating the element with null as alignment sets default alignment to center', () => {
+        const element = fixture('BadAlignmentType');
+        assert.equal(element.$.colorPicker.classList.contains('center'), true)
+        assert.equal(element.$.colorPicker.classList.contains('null'), false)
+      });
+
+      test('instantiating the element with a wrong argument as alignment sets default alignment to center', () => {
+        const element = fixture('BadAlignmentValue');
+        assert.equal(element.$.colorPicker.classList.contains('center'), true)
+        assert.equal(element.$.colorPicker.classList.contains('bottom'), false)
+      });
+
+      test('left aligning the element', () => {
+        const element = fixture('LeftAligned');
+        assert.equal(element.$.colorPicker.classList.contains('left'), true)
+        assert.equal(element.$.colorPicker.classList.contains('center'), false)
+      });
+
+      test('right aligning the element', () => {
+        const element = fixture('RightAligned');
+        assert.equal(element.$.colorPicker.classList.contains('right'), true)
+        assert.equal(element.$.colorPicker.classList.contains('center'), false)
+      });
+
+      test('The colorPicker element starts without hidden or visible, to prevent initial hiding frames showing', () => {
+        const element = fixture('BasicColorPicker');
+        let colorAdjuster = element.shadowRoot.querySelector('.color-adjuster');
+        assert.equal(colorAdjuster.getAttribute('color-picker'), '');
+      });
+
+      test('The colorPicker element becomes visible', (done) => {
+        const element = fixture('BasicColorPicker');
+        let colorAdjuster = element.shadowRoot.querySelector('.color-adjuster');
+        element.shadowRoot.querySelector('.menubutton').click();
+
+        flush(function () {
+          assert.equal(colorAdjuster.getAttribute('color-picker'), 'visible');
+          done();
+        });
+      });
+
+      test('The colorPicker element becomes hidden', (done) => {
+        const element = fixture('BasicColorPicker');
+        let colorAdjuster = element.shadowRoot.querySelector('.color-adjuster');
+        element.shadowRoot.querySelector('.menubutton').click();
+        element.shadowRoot.querySelector('.menubutton').click();
+
+        flush(function () {
+          assert.equal(colorAdjuster.getAttribute('color-picker'), 'hidden');
+          done();
+        });
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="color-selector">
+    <template>
+        <style>
+            :host {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                padding: 3.5px 6px;
+            }
+
+            #color * {
+                margin: 0;
+                padding: 0;
+            }
+
+            #color {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                box-shadow: 0 0 2px 0 black;
+                box-sizing: border-box;
+                border-radius: 2px;
+            }
+
+            #color p {
+                display: inline-block;
+                margin: auto;
+            }
+        </style>
+
+        <div id="color" on-click="changeColor" style$="background-color: [[normalColor]]; color: [[normalFontColor]]" title$="[[name]]">
+            <p>
+                <slot>
+                </slot>
+            </p>
+        </div>
+
+    </template>
+
+    <script>
+        /**
+         * `color-selector`
+         * Paper color picker including fonts
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class ColorSelector extends Polymer.Element {
+            static get is() { return 'color-selector'; }
+            static get properties() {
+                return {
+                    name: {
+                        type: Object,
+                        value: "black"
+                    },
+                    normalColor: {
+                        type: String,
+                        value: "#444444"
+                    },
+                    lightColor: {
+                        type: String,
+                        value: "#888888"
+                    },
+                    darkColor: {
+                        type: String,
+                        value: "#000000"
+                    },
+                    normalFontColor: {
+                        type: String,
+                        value: "white"
+                    },
+                    darkFontColor: {
+                        type: String,
+                        value: "white"
+                    },
+                    lightFontColor: {
+                        type: String,
+                        value: "white"
+                    },
+                    normalHeadFontColor: {
+                        type: String,
+                        value: "white"
+                    },
+                    darkHeadFontColor: {
+                        type: String,
+                        value: "white"
+                    },
+                    lightHeadFontColor: {
+                        type: String,
+                        value: "white"
+                    },
+                    target: {
+                        type: String,
+                        value: "primary"
+                    }
+                };
+            }
+
+            changeColor() {
+                let html = document.documentElement;
+
+                html.style.setProperty(`--${this.target}-color-light`, this.lightColor);
+                html.style.setProperty(`--${this.target}-color-normal`, this.normalColor);
+                html.style.setProperty(`--${this.target}-color-dark`, this.darkColor);
+
+                html.style.setProperty(`--${this.target}-text-light`, this.lightFontColor);
+                html.style.setProperty(`--${this.target}-text-normal`, this.normalFontColor);
+                html.style.setProperty(`--${this.target}-text-dark`, this.darkFontColor);
+
+                html.style.setProperty(`--${this.target}-head-text-light`, this.lightHeadFontColor);
+                html.style.setProperty(`--${this.target}-head-text-normal`, this.normalHeadFontColor);
+                html.style.setProperty(`--${this.target}-head-text-dark`, this.darkHeadFontColor);
+            }
+
+            _isPrimary() {
+                return this.target === 'primary';
+            }
+        }
+
+        window.customElements.define(ColorSelector.is, ColorSelector);
+    </script>
+</dom-module>

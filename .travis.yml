@@ -1,0 +1,28 @@
+{
+  "language": "node_js",
+  "dist": "trusty",
+  "sudo": true,
+  "addons": {
+    "firefox": "latest",
+    "chrome": "stable"
+  },
+  "node_js": "node",
+  "cache": {
+    "directories": [
+      "node_modules"
+    ]
+  },
+  "install": [
+    "npm install -g polymer-cli",
+    "npm install",
+    "polymer install"
+  ],
+  "before_script": [
+    "polymer lint"
+  ],
+  "script": [
+    "xvfb-run polymer test"
+  ],
+  "os": "linux",
+  "group": "stable"
+}

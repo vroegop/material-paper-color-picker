@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>&lt;material-paper-color-picker&gt; demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../material-paper-color-picker.html">
+  <link rel="import" href="../color-selector.html">
+  <link rel="import" href="./mobile-demo-page.html">
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+      html {
+        --primary-color-light: #80e27e;
+        --primary-color-normal: #4caf50;
+        --primary-color-dark: #087f23;
+
+        --primary-text-light: black;
+        --primary-text-normal: black;
+        --primary-text-dark: white;
+
+        --primary-head-text-light: black;
+        --primary-head-text-normal: black;
+        --primary-head-text-dark: white;
+
+        --secondary-color-light: #ffc246;
+        --secondary-color-normal: #ff9100;
+        --secondary-color-dark: #c56200;
+
+        --secondary-text-light: black;
+        --secondary-text-normal: black;
+        --secondary-text-dark: black;
+
+        --secondary-head-text-light: black;
+        --secondary-head-text-normal: black;
+        --secondary-head-text-dark: black;
+      }
+
+      material-paper-color-picker {
+        margin-left: 260px;
+      }
+    </style>
+  </custom-style>
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h2>&lt;material-paper-color-picker&gt; with default colors</h2>
+    <demo-snippet>
+      <template>
+        <material-paper-color-picker align="left">
+
+        </material-paper-color-picker>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <mobile-demo-page></mobile-demo-page>
+
+  <div class="vertical-section-container centered">
+    <h2>&lt;material-paper-color-picker&gt; only primary colors</h2>
+    <demo-snippet>
+      <template>
+        <material-paper-color-picker align="right" secondary-colors="[]">
+
+        </material-paper-color-picker>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <mobile-demo-page></mobile-demo-page>
+
+  <div class="vertical-section-container centered">
+    <h2>&lt;material-paper-color-picker&gt; only secondary colors</h2>
+    <demo-snippet>
+      <template>
+        <material-paper-color-picker align="center" primary-colors="[]">
+
+        </material-paper-color-picker>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <mobile-demo-page></mobile-demo-page>
+
+  <div class="vertical-section-container centered">
+    <h2>&lt;color-selector&gt; for custom colors without a container</h2>
+    <demo-snippet>
+      <template>
+        <color-selector name="Custom red primary" target="primary" normal-color="#f44336" normal-font-color="black" normal-head-font-color="black"
+          light-color="#ff7961" light-font-color="black" light-head-font-color="black" dark-color="#ba000d" dark-font-color="white"
+          dark-head-font-color="white">
+        </color-selector>
+
+        <color-selector name="Custom blue primary" target="primary" normal-color="#2196f3" normal-font-color="black" normal-head-font-color="white"
+          light-color="#6ec6ff" light-font-color="black" light-head-font-color="black" dark-color="#0069c0" dark-font-color="white"
+          dark-head-font-color="white">
+        </color-selector>
+
+        <color-selector name="Custom amber secondary" target="secondary" normal-color="#ff9800" normal-font-color="black" normal-head-font-color="black"
+          light-color="#ffc947" light-font-color="black" light-head-font-color="black" dark-color="#c66900" dark-font-color="black"
+          dark-head-font-color="white">
+        </color-selector>
+
+        <color-selector name="Custom blue secondary" target="secondary" normal-color="#03a9f4" normal-font-color="black" normal-head-font-color="white"
+          light-color="#67daff" light-font-color="black" light-head-font-color="black" dark-color="#007ac1" dark-font-color="white"
+          dark-head-font-color="white">
+        </color-selector>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <mobile-demo-page></mobile-demo-page>
+
+  <div class="vertical-section-container centered">
+    <h2>&lt;material-paper-color-picker&gt; with custom colors in slots</h2>
+    <demo-snippet>
+      <template>
+        <material-paper-color-picker align="center" primary-colors="[true]" secondary-colors="[true]">
+          <color-selector name="Custom red primary" target="primary" normal-color="#f44336" normal-font-color="black" normal-head-font-color="black"
+            light-color="#ff7961" light-font-color="black" light-head-font-color="black" dark-color="#ba000d" dark-font-color="white"
+            dark-head-font-color="white" slot="primary">
+          </color-selector>
+
+          <color-selector name="Custom blue primary" target="primary" normal-color="#2196f3" normal-font-color="black" normal-head-font-color="white"
+            light-color="#6ec6ff" light-font-color="black" light-head-font-color="black" dark-color="#0069c0" dark-font-color="white"
+            dark-head-font-color="white" slot="primary">
+          </color-selector>
+
+          <color-selector name="Custom amber secondary" target="secondary" normal-color="#ff9800" normal-font-color="black" normal-head-font-color="black"
+            light-color="#ffc947" light-font-color="black" light-head-font-color="black" dark-color="#c66900" dark-font-color="black"
+            dark-head-font-color="white" slot="secondary">
+          </color-selector>
+
+          <color-selector name="Custom blue secondary" target="secondary" normal-color="#03a9f4" normal-font-color="black" normal-head-font-color="white"
+            light-color="#67daff" light-font-color="black" light-head-font-color="black" dark-color="#007ac1" dark-font-color="white"
+            dark-head-font-color="white" slot="secondary">
+          </color-selector>
+        </material-paper-color-picker>
+      </template>
+    </demo-snippet>
+  </div>
+
+  <mobile-demo-page></mobile-demo-page>
+
+</body>
+
+</html>
