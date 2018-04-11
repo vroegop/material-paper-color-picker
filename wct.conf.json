@@ -1,0 +1,11 @@
+{
+    "plugins": {
+        "sauce": {
+            "disabled": true,
+            "browsers": [
+                "chrome",
+                "firefox"
+            ]
+        }
+    }
+}
