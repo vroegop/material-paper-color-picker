@@ -1,0 +1,11 @@
+{
+    "plugins": {
+        "sauce": {
+            "browsers": {
+                "browserName": "chrome",
+                "platform": "Linux",
+                "version": ""
+            }
+        }
+    }
+}
