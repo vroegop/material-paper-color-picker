@@ -6,6 +6,12 @@
                 "platform": "Linux",
                 "version": ""
             }
+        },
+        "local": {
+            "browsers": [
+                "firefox",
+                "chrome"
+            ]
         }
     }
 }
