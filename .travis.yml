@@ -16,9 +16,9 @@ before_script:
   - polymer install
   - polymer lint
 script:
-  - xvfb-run polymer test
+  - xvfb-run polymer test --skip-plugin sauce
   - >-
-    if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test --plugin sauce;
+    if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test --skip-plugin local;
     fi
   - sonar-scanner
 os: linux
