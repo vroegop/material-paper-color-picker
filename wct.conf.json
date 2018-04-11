@@ -5,7 +5,7 @@
                 {
                     "browserName": "chrome",
                     "platform": "Linux",
-                    "version": ""
+                    "version": "latest"
                 }
             ]
         }
