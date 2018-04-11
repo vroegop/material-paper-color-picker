@@ -3,6 +3,12 @@ language: node_js
 dist: trusty
 sudo: true
 addons:
+  firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
   sauce_connect: 
     username: "rjp.vroegop@gmail.com"
   jwt:
