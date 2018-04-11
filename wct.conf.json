@@ -3,9 +3,24 @@
         "sauce": {
             "browsers": [
                 {
-                    "browserName": "chrome",
-                    "platform": "Linux",
+                    "browserName": "microsoftedge",
+                    "platform": "Windows 10",
                     "version": "latest"
+                },
+                {
+                    "browserName": "chrome",
+                    "platform": "Windows 10",
+                    "version": "latest"
+                },
+                {
+                    "browserName": "firefox",
+                    "platform": "Windows 10",
+                    "version": "latest"
+                },
+                {
+                    "browserName": "safari",
+                    "platform": "OS X 10.13",
+                    "version": "11"
                 }
             ]
         }
