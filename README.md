@@ -106,7 +106,7 @@ You can also add text to the `<color-selector>` element to preview `--{target}-f
 </color-selector>
 ```
 
-#### \<material-paper-color-picker\> Adding custom colors
+### \<material-paper-color-picker\> Adding custom colors
 
 If you want to add custom colors, you can add `<color-selector>` elements. Those elements represent the colors a
 user can choose from. If you don't remove the primary or secondary colors, there will be several `<color-selector>`
@@ -146,7 +146,7 @@ elements presented by default.
 </material-paper-color-picker>
 ```
 
-#### \<material-paper-color-picker\> Popup alignment
+### \<material-paper-color-picker\> Popup alignment
 
 You can pick several alignments for the popup if you use the popup container:
 
@@ -171,7 +171,7 @@ You can pick several alignments for the popup if you use the popup container:
 <material-paper-color-picker align="left"></material-paper-color-picker>
 ```
 
-#### \<material-paper-color-picker\> Custom icon
+### \<material-paper-color-picker\> Custom icon
 
 The default icon is an opacity icon. You can choose any icon from the default `iron-icon` selection.
 
@@ -216,7 +216,7 @@ If you want to use other icons, for example Google Maps icons, you will have to 
 <material-paper-color-picker icon="maps:directions-bus"></material-paper-color-picker>
 ```
 
-#### \<material-paper-color-picker\> Primary and secondary container titles
+### \<material-paper-color-picker\> Primary and secondary container titles
 
 You can specify your own title for the primary and secondary container:
 
@@ -310,7 +310,7 @@ footer {
 }
 ```
 
-#### <\color-selector\> Name
+### <\color-selector\> Name
 
 The name of the color is only used as references for the user => they appear in the
 tooltip and have no technical value.
@@ -320,13 +320,13 @@ As for the default colors, the name represents the value as described in the
 selection of colors in the 500 intensity range. The default secondaryColor array contains a complete
 selection of the colors in the a400 range (accent colors).
 
-#### \<color-selector\> Target
+### \<color-selector\> Target
 
 The target determines the CSS variable that is being changed. If you use the default color-picker, the
 targets are `primary` and `secondary`. These are also seperated in the view. You can mix the colors up if
 you want, by adding a `<color-selector>` element with `target="primary"` and `slot="secondary"` or vice versa.
 
-#### \<color-selector\> Slot
+### \<color-selector\> Slot
 
 The slot determines the container the element is shown in. If you use `slot="primary"`, the element is shown in the
 primary container. If you use `slot="secondary"`, the element is shown in the secondary container.
@@ -334,7 +334,7 @@ primary container. If you use `slot="secondary"`, the element is shown in the se
 If you don't want default paper-colors, but you do want colors in those containers, you have to specify wether the
 container must be visible.
 
-#### Font colors
+### Font colors
 
 The default colors come with font color suggestions that correspond to the suggested font colors in the
 [Google Material Palette](https://material.io/color). You are free to choose any font color if you add extra
@@ -342,7 +342,7 @@ colors to choose from. Please use the Google Material Palette if you are unsure 
 your chosen colors. Have a look at [Google Material Guidelines](https://material.io/guidelines/) for extended
 reading material on colors and material design.
 
-### \<material-paper-color-picker\> Styling
+## \<material-paper-color-picker\> Styling
 
 The following custom properties and mixins are available for styling:
 
