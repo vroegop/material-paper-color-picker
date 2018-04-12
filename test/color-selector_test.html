@@ -40,19 +40,26 @@
         </template>
     </test-fixture>
 
+    <test-fixture id="CustomColorSelectorWithLessAttributes">
+        <template>
+            <color-selector name="custom" target="primary" normal-color="red">
+            </color-selector>
+        </template>
+    </test-fixture>
+
     <script>
         suite('<material-paper-color-picker>', () => {
             test('instantiating the element with default properties works', () => {
                 const element = fixture('BasicColorSelector');
                 expect(element.name).to.be.a('string');
-                expect(element.target).to.be.a('string');
-                expect(element.normalColor).to.be.a('string');
-                expect(element.darkColor).to.be.a('string');
-                expect(element.lightColor).to.be.a('string');
-                expect(element.normalFontColor).to.be.a('string');
-                expect(element.normalHeadFontColor).to.be.a('string');
-                expect(element.darkHeadFontColor).to.be.a('string');
-                expect(element.lightHeadFontColor).to.be.a('string');
+                expect(element.target).to.equal('primary');
+                expect(element.normalColor).to.be.undefined;
+                expect(element.darkColor).to.be.undefined;
+                expect(element.lightColor).to.be.undefined;
+                expect(element.normalFontColor).to.be.undefined;
+                expect(element.normalHeadFontColor).to.be.undefined;
+                expect(element.darkHeadFontColor).to.be.undefined;
+                expect(element.lightHeadFontColor).to.be.undefined;
             });
 
             test('Setting the name works', () => {
@@ -216,6 +223,21 @@
                 flush(function () {
                     let colorNormal = getComputedStyle(document.documentElement).getPropertyValue('--primary-color-normal');
                     assert.equal(colorNormal, 'red');
+                    done();
+                })
+            });
+
+            test('Clicking a custom color selector with less properties sets only that property', (done) => {
+                const element = fixture('CustomColorSelectorWithLessAttributes');
+                document.documentElement.style.setProperty(`--primary-color-normal`, 'CustomTestColor');
+                document.documentElement.style.setProperty(`--primary-color-dark`, 'CustomTestColorDark');
+                element.$.color.click();
+
+                flush(function () {
+                    let colorNormal = getComputedStyle(document.documentElement).getPropertyValue('--primary-color-normal');
+                    let colorDark = getComputedStyle(document.documentElement).getPropertyValue('--primary-color-dark');
+                    assert.equal(colorNormal, 'red');
+                    assert.equal(colorDark, 'CustomTestColorDark');
                     done();
                 })
             });

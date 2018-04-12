@@ -1,4 +1,66 @@
+<!--
+@licence
+Copyright 2018 Randy Vroegop
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
 <link rel="import" href="../polymer/polymer-element.html">
+
+<!--
+Color selector
+
+### Usage
+
+The `<color-selector>` element enables you to change CSS variables by clicking on it.
+
+To use it, simply add the `<color-selector></color-selector>` element to your page after importing it.
+You can set the properties by editing attributes on the object itself.
+
+```html
+<color-selector 
+    name="Custom color" 
+    target="primary" 
+    normal-color="red" 
+    normal-font-color="white" 
+    normal-head-font-color="white"
+    light-color="lightred" 
+    light-font-color="black" 
+    light-head-font-color="black" 
+    dark-color="darkred" 
+    dark-font-color="white"
+    dark-head-font-color="lightgrey">
+</color-selector>
+```
+
+Note that not all properties need to be set. You can also choose to change the header-style only.
+If you are using the `material-paper-color-picker` element, all of the properties are set if you the use default colors.
+
+### Properties
+
+Custom property | Description | Default
+----------------|-------------|----------
+`name` | The name of the color, this shows up in the tooltip | `Color`
+`target` | The name of the target CSS rule to change (`--{target}-color-normal`) | `primary`
+`normal-color` | The color for --{target}-color-normal | `undefined`
+`normal-font` | The color for --{target}-font-normal | `undefined`
+`normal-head-font` | The color for --{target}-head-font-normal | `undefined`
+`light-color` | The color for --{target}-color-light | `undefined`
+`light-font` | The color for --{target}-font-light | `undefined`
+`light-head-font` | The color for --{target}-head-font-light | `undefined`
+`dark-color` | The color for --{target}-color-dark | `undefined`
+`dark-font` | The color for --{target}-font-dark | `undefined`
+`dark-head-font` | The color for --{target}-head-font-dark | `undefined`
+`slot` | the slot to put this element into, if used with `material-paper-color-picker` | `undefined`
+
+-->
 
 <dom-module id="color-selector">
     <template>
@@ -54,43 +116,34 @@
                 return {
                     name: {
                         type: Object,
-                        value: "black"
+                        value: "Custom"
                     },
                     normalColor: {
-                        type: String,
-                        value: "#444444"
+                        type: String
                     },
                     lightColor: {
-                        type: String,
-                        value: "#888888"
+                        type: String
                     },
                     darkColor: {
-                        type: String,
-                        value: "#000000"
+                        type: String
                     },
                     normalFontColor: {
-                        type: String,
-                        value: "white"
+                        type: String
                     },
                     darkFontColor: {
-                        type: String,
-                        value: "white"
+                        type: String
                     },
                     lightFontColor: {
-                        type: String,
-                        value: "white"
+                        type: String
                     },
                     normalHeadFontColor: {
-                        type: String,
-                        value: "white"
+                        type: String
                     },
                     darkHeadFontColor: {
-                        type: String,
-                        value: "white"
+                        type: String
                     },
                     lightHeadFontColor: {
-                        type: String,
-                        value: "white"
+                        type: String
                     },
                     target: {
                         type: String,
@@ -102,17 +155,17 @@
             changeColor() {
                 let html = document.documentElement;
 
-                html.style.setProperty(`--${this.target}-color-light`, this.lightColor);
-                html.style.setProperty(`--${this.target}-color-normal`, this.normalColor);
-                html.style.setProperty(`--${this.target}-color-dark`, this.darkColor);
+                this.lightColor === undefined || html.style.setProperty(`--${this.target}-color-light`, this.lightColor);
+                this.normalColor === undefined || html.style.setProperty(`--${this.target}-color-normal`, this.normalColor);
+                this.darkColor === undefined || html.style.setProperty(`--${this.target}-color-dark`, this.darkColor);
 
-                html.style.setProperty(`--${this.target}-text-light`, this.lightFontColor);
-                html.style.setProperty(`--${this.target}-text-normal`, this.normalFontColor);
-                html.style.setProperty(`--${this.target}-text-dark`, this.darkFontColor);
+                this.lightFontColor === undefined || html.style.setProperty(`--${this.target}-text-light`, this.lightFontColor);
+                this.normalFontColor === undefined || html.style.setProperty(`--${this.target}-text-normal`, this.normalFontColor);
+                this.darkFontColor === undefined || html.style.setProperty(`--${this.target}-text-dark`, this.darkFontColor);
 
-                html.style.setProperty(`--${this.target}-head-text-light`, this.lightHeadFontColor);
-                html.style.setProperty(`--${this.target}-head-text-normal`, this.normalHeadFontColor);
-                html.style.setProperty(`--${this.target}-head-text-dark`, this.darkHeadFontColor);
+                this.lightHeadFontColor === undefined || html.style.setProperty(`--${this.target}-head-text-light`, this.lightHeadFontColor);
+                this.normalHeadFontColor === undefined || html.style.setProperty(`--${this.target}-head-text-normal`, this.normalHeadFontColor);
+                this.darkHeadFontColor === undefined || html.style.setProperty(`--${this.target}-head-text-dark`, this.darkHeadFontColor);
             }
 
             _isPrimary() {

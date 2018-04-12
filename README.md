@@ -14,8 +14,9 @@ To use it, simply add the `<material-paper-color-picker></material-paper-color-p
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -33,8 +34,9 @@ The color picker without primary colors:
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -50,8 +52,9 @@ The color picker without secondary colors:
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -81,7 +84,7 @@ You will need to specify every color you want seperately. An example of a full-f
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="color-selector.html">
     <next-code-block></next-code-block>
   </template>
@@ -130,8 +133,9 @@ elements presented by default.
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -164,8 +168,9 @@ You can pick several alignments for the popup if you use the popup container:
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -185,8 +190,9 @@ The default icon is an opacity icon. You can choose any icon from the default `i
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -202,8 +208,9 @@ If you want to use other icons, for example Google Maps icons, you will have to 
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -222,8 +229,9 @@ You can specify your own title for the primary and secondary container:
 ```
 <custom-element-demo>
   <template>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="material-paper-color-picker.html">
+    <style>material-paper-color-picker { margin: 0 200px 340px 200px; }</style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -336,15 +344,14 @@ colors to choose from. Please use the Google Material Palette if you are unsure 
 your chosen colors. Have a look at [Google Material Guidelines](https://material.io/guidelines/) for extended
 reading material on colors and material design.
 
-### \<material-paper-color-picker\> Styling the color picker container and icon
-Style the color picker icon and layout by overriding css variables:
+### \<material-paper-color-picker\> Styling
 
-```css
-material-paper-color-picker {
-    --icon-color
-    --icon-background-color
-    --icon-border-radius
-    --popup-background-color
-    --popup-text-color
-}
-```
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--icon-color` | The color of the icon | `black`
+`--icon-background-color` | The background color of the icon | `rgba(0,0,0,0.1)`
+`--icon-border-radius` | The border radius | `50%`
+`--popup-background-color` | The background color of the popup window | `white`
+`--popup-text-color` | The text color of the popup window | `black`
