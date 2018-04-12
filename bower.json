@@ -1,6 +1,6 @@
 {
   "name": "material-paper-color-picker",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Paper color picker including fonts",
   "main": "material-paper-color-picker.html",
   "dependencies": {
