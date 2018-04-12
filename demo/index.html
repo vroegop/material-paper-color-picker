@@ -43,8 +43,9 @@
         --secondary-head-text-dark: black;
       }
 
-      material-paper-color-picker {
-        margin-left: 260px;
+      div.center {
+        display: flex;
+        justify-content: space-around;
       }
     </style>
   </custom-style>
@@ -52,12 +53,17 @@
 
 <body>
   <div class="vertical-section-container centered">
-    <h2>&lt;material-paper-color-picker&gt; with default colors</h2>
+    <h2>The color picker can have custom alignments &amp; titles</h2>
     <demo-snippet>
       <template>
-        <material-paper-color-picker align="left">
-
-        </material-paper-color-picker>
+        <div class="center">
+          <material-paper-color-picker align="right">
+          </material-paper-color-picker>
+          <material-paper-color-picker align="center" primary-title="Princess colors" secondary-title="Italian colors">
+          </material-paper-color-picker>
+          <material-paper-color-picker align="left">
+          </material-paper-color-picker>
+        </div>
       </template>
     </demo-snippet>
   </div>
@@ -65,25 +71,21 @@
   <mobile-demo-page></mobile-demo-page>
 
   <div class="vertical-section-container centered">
-    <h2>&lt;material-paper-color-picker&gt; only primary colors</h2>
+    <h2>You can completely hide colors, or just prevent initialization</h2>
     <demo-snippet>
       <template>
-        <material-paper-color-picker align="right" secondary-colors="[]">
-
-        </material-paper-color-picker>
-      </template>
-    </demo-snippet>
-  </div>
-
-  <mobile-demo-page></mobile-demo-page>
-
-  <div class="vertical-section-container centered">
-    <h2>&lt;material-paper-color-picker&gt; only secondary colors</h2>
-    <demo-snippet>
-      <template>
-        <material-paper-color-picker align="center" primary-colors="[]">
-
-        </material-paper-color-picker>
+        <div class="center">
+          <material-paper-color-picker align="center">
+          </material-paper-color-picker>
+          <material-paper-color-picker align="center" hide-secondary="true">
+          </material-paper-color-picker>
+          <material-paper-color-picker align="center" hide-primary="true">
+          </material-paper-color-picker>
+          <material-paper-color-picker align="center" empty-primary="true">
+          </material-paper-color-picker>
+          <material-paper-color-picker align="center" empty-secondary="true">
+          </material-paper-color-picker>
+        </div>
       </template>
     </demo-snippet>
   </div>
@@ -94,25 +96,31 @@
     <h2>&lt;color-selector&gt; for custom colors without a container</h2>
     <demo-snippet>
       <template>
-        <color-selector name="Custom red primary" target="primary" normal-color="#f44336" normal-font-color="black" normal-head-font-color="black"
-          light-color="#ff7961" light-font-color="black" light-head-font-color="black" dark-color="#ba000d" dark-font-color="white"
-          dark-head-font-color="white">
-        </color-selector>
+        <div class="center">
+          <color-selector name="Default primary" target="primary"></color-selector>
 
-        <color-selector name="Custom blue primary" target="primary" normal-color="#2196f3" normal-font-color="black" normal-head-font-color="white"
-          light-color="#6ec6ff" light-font-color="black" light-head-font-color="black" dark-color="#0069c0" dark-font-color="white"
-          dark-head-font-color="white">
-        </color-selector>
+          <color-selector name="Custom red primary" target="primary" normal-color="#f44336" normal-font-color="black" normal-head-font-color="black"
+            light-color="#ff7961" light-font-color="black" light-head-font-color="black" dark-color="#ba000d" dark-font-color="white"
+            dark-head-font-color="white">
+          </color-selector>
 
-        <color-selector name="Custom amber secondary" target="secondary" normal-color="#ff9800" normal-font-color="black" normal-head-font-color="black"
-          light-color="#ffc947" light-font-color="black" light-head-font-color="black" dark-color="#c66900" dark-font-color="black"
-          dark-head-font-color="white">
-        </color-selector>
+          <color-selector name="Custom blue primary" target="primary" normal-color="#2196f3" normal-font-color="black" normal-head-font-color="white"
+            light-color="#6ec6ff" light-font-color="black" light-head-font-color="black" dark-color="#0069c0" dark-font-color="white"
+            dark-head-font-color="white">
+          </color-selector>
 
-        <color-selector name="Custom blue secondary" target="secondary" normal-color="#03a9f4" normal-font-color="black" normal-head-font-color="white"
-          light-color="#67daff" light-font-color="black" light-head-font-color="black" dark-color="#007ac1" dark-font-color="white"
-          dark-head-font-color="white">
-        </color-selector>
+          <color-selector name="Default secondary" target="secondary"></color-selector>
+
+          <color-selector name="Custom amber secondary" target="secondary" normal-color="#ff9800" normal-font-color="black" normal-head-font-color="black"
+            light-color="#ffc947" light-font-color="black" light-head-font-color="black" dark-color="#c66900" dark-font-color="black"
+            dark-head-font-color="white">
+          </color-selector>
+
+          <color-selector name="Custom blue secondary" target="secondary" normal-color="#03a9f4" normal-font-color="black" normal-head-font-color="white"
+            light-color="#67daff" light-font-color="black" light-head-font-color="black" dark-color="#007ac1" dark-font-color="white"
+            dark-head-font-color="white">
+          </color-selector>
+        </div>
       </template>
     </demo-snippet>
   </div>
@@ -123,27 +131,35 @@
     <h2>&lt;material-paper-color-picker&gt; with custom colors in slots</h2>
     <demo-snippet>
       <template>
-        <material-paper-color-picker align="center" primary-colors="[true]" secondary-colors="[true]">
-          <color-selector name="Custom red primary" target="primary" normal-color="#f44336" normal-font-color="black" normal-head-font-color="black"
-            light-color="#ff7961" light-font-color="black" light-head-font-color="black" dark-color="#ba000d" dark-font-color="white"
-            dark-head-font-color="white" slot="primary">
-          </color-selector>
+        <div class="center">
+          <material-paper-color-picker align="center" empty-primary="true" empty-secondary="true">
 
-          <color-selector name="Custom blue primary" target="primary" normal-color="#2196f3" normal-font-color="black" normal-head-font-color="white"
-            light-color="#6ec6ff" light-font-color="black" light-head-font-color="black" dark-color="#0069c0" dark-font-color="white"
-            dark-head-font-color="white" slot="primary">
-          </color-selector>
+            <color-selector name="Default primary" target="primary" slot="primary"></color-selector>
 
-          <color-selector name="Custom amber secondary" target="secondary" normal-color="#ff9800" normal-font-color="black" normal-head-font-color="black"
-            light-color="#ffc947" light-font-color="black" light-head-font-color="black" dark-color="#c66900" dark-font-color="black"
-            dark-head-font-color="white" slot="secondary">
-          </color-selector>
+            <color-selector name="Custom red primary" target="primary" normal-color="#f44336" normal-font-color="black" normal-head-font-color="black"
+              light-color="#ff7961" light-font-color="black" light-head-font-color="black" dark-color="#ba000d" dark-font-color="white"
+              dark-head-font-color="white" slot="primary">
+            </color-selector>
 
-          <color-selector name="Custom blue secondary" target="secondary" normal-color="#03a9f4" normal-font-color="black" normal-head-font-color="white"
-            light-color="#67daff" light-font-color="black" light-head-font-color="black" dark-color="#007ac1" dark-font-color="white"
-            dark-head-font-color="white" slot="secondary">
-          </color-selector>
-        </material-paper-color-picker>
+            <color-selector name="Custom blue primary" target="primary" normal-color="#2196f3" normal-font-color="black" normal-head-font-color="white"
+              light-color="#6ec6ff" light-font-color="black" light-head-font-color="black" dark-color="#0069c0" dark-font-color="white"
+              dark-head-font-color="white" slot="primary">
+            </color-selector>
+
+            <color-selector name="Default secondary" target="secondary" slot="secondary"></color-selector>
+
+            <color-selector name="Custom amber secondary" target="secondary" normal-color="#ff9800" normal-font-color="black" normal-head-font-color="black"
+              light-color="#ffc947" light-font-color="black" light-head-font-color="black" dark-color="#c66900" dark-font-color="black"
+              dark-head-font-color="white" slot="secondary">
+            </color-selector>
+
+            <color-selector name="Custom blue secondary" target="secondary" normal-color="#03a9f4" normal-font-color="black" normal-head-font-color="white"
+              light-color="#67daff" light-font-color="black" light-head-font-color="black" dark-color="#007ac1" dark-font-color="white"
+              dark-head-font-color="white" slot="secondary">
+            </color-selector>
+
+          </material-paper-color-picker>
+        </div>
       </template>
     </demo-snippet>
   </div>

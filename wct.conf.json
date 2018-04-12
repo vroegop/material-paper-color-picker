@@ -5,22 +5,22 @@
                 {
                     "browserName": "microsoftedge",
                     "platform": "Windows 10",
-                    "version": "latest"
+                    "version": "15"
                 },
                 {
                     "browserName": "chrome",
                     "platform": "Windows 10",
-                    "version": "latest"
+                    "version": "49"
                 },
                 {
                     "browserName": "firefox",
                     "platform": "Windows 10",
-                    "version": "latest"
+                    "version": "42"
                 },
                 {
                     "browserName": "safari",
                     "platform": "OS X 10.13",
-                    "version": "11"
+                    "version": "10"
                 }
             ]
         }

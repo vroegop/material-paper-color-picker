@@ -23,19 +23,31 @@
 
   <test-fixture id="PrimaryColorPicker">
     <template>
-      <material-paper-color-picker secondary-colors="[]"></material-paper-color-picker>
+      <material-paper-color-picker hide-secondary="true"></material-paper-color-picker>
     </template>
   </test-fixture>
 
   <test-fixture id="SecondaryColorPicker">
     <template>
-      <material-paper-color-picker primary-colors="[]"></material-paper-color-picker>
+      <material-paper-color-picker hide-primary="true"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="PrimaryEmptyColorPicker">
+    <template>
+      <material-paper-color-picker empty-secondary="true"></material-paper-color-picker>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="SecondaryEmptyColorPicker">
+    <template>
+      <material-paper-color-picker empty-primary="true"></material-paper-color-picker>
     </template>
   </test-fixture>
 
   <test-fixture id="EmptyColorPicker">
     <template>
-      <material-paper-color-picker primary-colors="[]"></material-paper-color-picker>
+      <material-paper-color-picker empty-secondary="true" empty-primary="true"></material-paper-color-picker>
     </template>
   </test-fixture>
 
@@ -60,12 +72,13 @@
 
         flush(function () {
           const colorElements = element.shadowRoot.querySelectorAll('color-selector');
-          assert.equal(colorElements.length, 40);
+          const amountOfColors = element.primaryColors.length + element.secondaryColors.length;
+          assert.equal(colorElements.length, amountOfColors);
           done();
         });
       });
 
-      test('instantiating the element with only primary colors creates one .colors container', (done) => {
+      test('instantiating the element hiding secondary colors creates one .colors container', (done) => {
         const element = fixture('PrimaryColorPicker');
 
         flush(function () {
@@ -75,7 +88,7 @@
         });
       });
 
-      test('instantiating the element with only primary colors sets .color-picker[size="large-true"]', (done) => {
+      test('instantiating the element hiding secondary colors sets .color-picker[size="large-true"]', (done) => {
         const element = fixture('PrimaryColorPicker');
 
         flush(function () {
@@ -85,17 +98,18 @@
         });
       });
 
-      test('instantiating the element with only primary colors gives only primary colors', (done) => {
+      test('instantiating the element hiding secondary colors gives only primary colors', (done) => {
         const element = fixture('PrimaryColorPicker');
 
         flush(function () {
           const colorElements = element.shadowRoot.querySelectorAll('color-selector');
-          assert.equal(colorElements.length, 20);
+          const amountOfColors = element.primaryColors.length;
+          assert.equal(colorElements.length, amountOfColors);
           done();
         });
       });
 
-      test('instantiating the element with only secondary colors creates only one .colors container', (done) => {
+      test('instantiating the element hiding primary colors creates only one .colors container', (done) => {
         const element = fixture('SecondaryColorPicker');
 
         flush(function () {
@@ -105,7 +119,7 @@
         });
       });
 
-      test('instantiating the element with only secondary colors  sets .color-picker[size="large-true"]', (done) => {
+      test('instantiating the element hiding primary colors sets .color-picker[size="large-true"]', (done) => {
         const element = fixture('SecondaryColorPicker');
 
         flush(function () {
@@ -115,12 +129,106 @@
         });
       });
 
-      test('instantiating the element with only secondary colors gives only secondary colors', (done) => {
+      test('instantiating the element hiding primary colors gives only secondary colors', (done) => {
         const element = fixture('SecondaryColorPicker');
 
         flush(function () {
           const colorElements = element.shadowRoot.querySelectorAll('color-selector');
-          assert.equal(colorElements.length, 20);
+          const amountOfColors = element.secondaryColors.length;
+          assert.equal(colorElements.length, amountOfColors);
+          done();
+        });
+      });
+
+      test('instantiating the element with empty primary colors sets .color-picker[size="large-false"]', (done) => {
+        const element = fixture('PrimaryEmptyColorPicker');
+
+        flush(function () {
+          const colorPicker = element.shadowRoot.querySelector('.color-picker');
+          expect(colorPicker.getAttribute('size')).to.equal('large-false')
+          done();
+        });
+      });
+
+      test('instantiating the element with empty primary colors creates two .colors container', (done) => {
+        const element = fixture('PrimaryEmptyColorPicker');
+
+        flush(function () {
+          const colorContainers = element.shadowRoot.querySelectorAll('.colors');
+          assert.equal(colorContainers.length, 2);
+          done();
+        });
+      });
+
+      test('instantiating the element with empty primary colors gives 20 secondary colors', (done) => {
+        const element = fixture('PrimaryEmptyColorPicker');
+
+        flush(function () {
+          const colorElements = element.shadowRoot.querySelectorAll('color-selector');
+          const amountOfColors = element.secondaryColors.length;
+          assert.equal(colorElements.length, amountOfColors);
+          done();
+        });
+      });
+
+      test('instantiating the element with empty secondary colors sets .color-picker[size="large-false"]', (done) => {
+        const element = fixture('SecondaryEmptyColorPicker');
+
+        flush(function () {
+          const colorPicker = element.shadowRoot.querySelector('.color-picker');
+          expect(colorPicker.getAttribute('size')).to.equal('large-false')
+          done();
+        });
+      });
+
+      test('instantiating the element with empty secondary colors creates two .colors container', (done) => {
+        const element = fixture('SecondaryEmptyColorPicker');
+
+        flush(function () {
+          const colorContainers = element.shadowRoot.querySelectorAll('.colors');
+          assert.equal(colorContainers.length, 2);
+          done();
+        });
+      });
+
+      test('instantiating the element with empty secondary colors gives 20 primary colors', (done) => {
+        const element = fixture('SecondaryEmptyColorPicker');
+
+        flush(function () {
+          const colorElements = element.shadowRoot.querySelectorAll('color-selector');
+          const amountOfColors = element.primaryColors.length;
+          assert.equal(colorElements.length, amountOfColors);
+          done();
+        });
+      });
+
+      test('instantiating the element without colors sets .color-picker[size="large-false"]', (done) => {
+        const element = fixture('EmptyColorPicker');
+
+        flush(function () {
+          const colorPicker = element.shadowRoot.querySelector('.color-picker');
+          expect(colorPicker.getAttribute('size')).to.equal('large-false')
+          done();
+        });
+      });
+
+      test('instantiating the element without colors creates two .colors container', (done) => {
+        const element = fixture('EmptyColorPicker');
+
+        flush(function () {
+          const colorContainers = element.shadowRoot.querySelectorAll('.colors');
+          assert.equal(colorContainers.length, 2);
+          done();
+        });
+      });
+
+      test('instantiating the element without colors gives 0 colors', (done) => {
+        const element = fixture('EmptyColorPicker');
+
+        flush(function () {
+          const colorElements = element.shadowRoot.querySelectorAll('color-selector');
+          const amountOfColors = 0;
+          assert.equal(colorElements.length, amountOfColors);
           done();
         });
       });

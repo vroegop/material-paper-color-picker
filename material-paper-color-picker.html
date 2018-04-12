@@ -120,28 +120,31 @@
 
     <div class="color-adjuster" color-picker$="[[cpOpen]]">
       <paper-icon-button class="menubutton" icon="opacity" on-click="toggleColorPicker"></paper-icon-button>
-
       <div class="color-picker" id="colorPicker" size$="large-[[!_bothColors()]]">
-        <template is="dom-if" if="{{primaryColors.length}}">
+        <template is="dom-if" if="{{!hidePrimary}}">
           <p>[[primaryTitle]]</p>
           <div class="colors">
-            <template is="dom-repeat" items="{{_primaryColors()}}" as="color">
-              <color-selector name="[[color.name]]" target="primary" normal-color="[[color.normal.clr]]" normal-font-color="[[color.normal.sTxt]]"
-                normal-head-font-color="[[color.normal.lTxt]]" light-color="[[color.light.clr]]" light-font-color="[[color.light.sTxt]]"
-                light-head-font-color="[[color.light.lTxt]]" dark-color="[[color.dark.clr]]" dark-font-color="[[color.dark.sTxt]]"
-                dark-head-font-color="[[color.dark.lTxt]]"></color-selector>
+            <template is="dom-if" if="{{!emptyPrimary}}">
+              <template is="dom-repeat" items="{{primaryColors}}" as="color">
+                <color-selector name="[[color.name]]" target="primary" normal-color="[[color.normal.clr]]" normal-font-color="[[color.normal.sTxt]]"
+                  normal-head-font-color="[[color.normal.lTxt]]" light-color="[[color.light.clr]]" light-font-color="[[color.light.sTxt]]"
+                  light-head-font-color="[[color.light.lTxt]]" dark-color="[[color.dark.clr]]" dark-font-color="[[color.dark.sTxt]]"
+                  dark-head-font-color="[[color.dark.lTxt]]"></color-selector>
+              </template>
             </template>
             <slot name="primary"></slot>
           </div>
         </template>
-        <template is="dom-if" if="{{secondaryColors.length}}">
+        <template is="dom-if" if="{{!hideSecondary}}">
           <p>[[secondaryTitle]]</p>
           <div class="colors">
-            <template is="dom-repeat" items="{{_secondaryColors()}}" as="color">
-              <color-selector name="[[color.name]]" target="secondary" normal-color="[[color.normal.clr]]" normal-font-color="[[color.normal.sTxt]]"
-                normal-head-font-color="[[color.normal.lTxt]]" light-color="[[color.light.clr]]" light-font-color="[[color.light.sTxt]]"
-                light-head-font-color="[[color.light.lTxt]]" dark-color="[[color.dark.clr]]" dark-font-color="[[color.dark.sTxt]]"
-                dark-head-font-color="[[color.dark.lTxt]]"></color-selector>
+            <template is="dom-if" if="{{!emptySecondary}}">
+              <template is="dom-repeat" items="{{secondaryColors}}" as="color">
+                <color-selector name="[[color.name]]" target="secondary" normal-color="[[color.normal.clr]]" normal-font-color="[[color.normal.sTxt]]"
+                  normal-head-font-color="[[color.normal.lTxt]]" light-color="[[color.light.clr]]" light-font-color="[[color.light.sTxt]]"
+                  light-head-font-color="[[color.light.lTxt]]" dark-color="[[color.dark.clr]]" dark-font-color="[[color.dark.sTxt]]"
+                  dark-head-font-color="[[color.dark.lTxt]]"></color-selector>
+              </template>
             </template>
             <slot name="secondary"></slot>
           </div>
@@ -966,24 +969,24 @@
                 },
               },
             ]
+          },
+          emptyPrimary: {
+            type: Boolean,
+            value: false
+          },
+          emptySecondary: {
+            type: Boolean,
+            value: false
+          },
+          hidePrimary: {
+            type: Boolean,
+            value: false
+          },
+          hideSecondary: {
+            type: Boolean,
+            value: false
           }
         };
-      }
-
-      _primaryColors() {
-        if (typeof this.primaryColors[0] === 'object') {
-          return this.primaryColors;
-        } else {
-          return [];
-        }
-      }
-
-      _secondaryColors() {
-        if (typeof this.secondaryColors[0] === 'object') {
-          return this.secondaryColors;
-        } else {
-          return [];
-        }
       }
 
       toggleColorPicker(event) {
@@ -1016,9 +1019,7 @@
       }
 
       _bothColors() {
-        let primaryColors = this.primaryColors.length > 0 && this.primaryColors[0] !== false;
-        let secondaryColors = this.secondaryColors.length > 0 && this.secondaryColors[0] !== false;
-        return primaryColors && secondaryColors;
+        return !this.hidePrimary && !this.hideSecondary;
       }
 
       connectedCallback() {
