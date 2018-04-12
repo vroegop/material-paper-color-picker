@@ -11,6 +11,51 @@
 /// <reference path="../polymer/types/polymer-element.d.ts" />
 
 /**
+ * Color selector
+ *
+ * ### Usage
+ *
+ * The `<color-selector>` element enables you to change CSS variables by clicking on it.
+ *
+ * To use it, simply add the `<color-selector></color-selector>` element to your page after importing it.
+ * You can set the properties by editing attributes on the object itself.
+ *
+ * ```html
+ * <color-selector 
+ *     name="Custom color" 
+ *     target="primary" 
+ *     normal-color="red" 
+ *     normal-font-color="white" 
+ *     normal-head-font-color="white"
+ *     light-color="lightred" 
+ *     light-font-color="black" 
+ *     light-head-font-color="black" 
+ *     dark-color="darkred" 
+ *     dark-font-color="white"
+ *     dark-head-font-color="lightgrey">
+ * </color-selector>
+ * ```
+ *
+ * Note that not all properties need to be set. You can also choose to change the header-style only.
+ * If you are using the `material-paper-color-picker` element, all of the properties are set if you the use default colors.
+ *
+ * ### Properties
+ *
+ * Custom property | Description | Default
+ * ----------------|-------------|----------
+ * `name` | The name of the color, this shows up in the tooltip | `Color`
+ * `target` | The name of the target CSS rule to change (`--{target}-color-normal`) | `primary`
+ * `normal-color` | The color for --{target}-color-normal | `undefined`
+ * `normal-font` | The color for --{target}-font-normal | `undefined`
+ * `normal-head-font` | The color for --{target}-head-font-normal | `undefined`
+ * `light-color` | The color for --{target}-color-light | `undefined`
+ * `light-font` | The color for --{target}-font-light | `undefined`
+ * `light-head-font` | The color for --{target}-head-font-light | `undefined`
+ * `dark-color` | The color for --{target}-color-dark | `undefined`
+ * `dark-font` | The color for --{target}-font-dark | `undefined`
+ * `dark-head-font` | The color for --{target}-head-font-dark | `undefined`
+ * `slot` | the slot to put this element into, if used with `material-paper-color-picker` | `undefined`
+ *
  * `color-selector`
  * Paper color picker including fonts
  */

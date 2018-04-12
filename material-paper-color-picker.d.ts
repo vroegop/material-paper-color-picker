@@ -14,6 +14,115 @@
 /// <reference path="../iron-icons/iron-icons.d.ts" />
 
 /**
+ * Paper color picker including fonts
+ *
+ * ### Usage
+ *
+ * The `<material-paper-color-picker>` will load all [Google Material Palette colors](https://material.io/color) by default.
+ *
+ * To use it, simply add the `<material-paper-color-picker></material-paper-color-picker>` element to your page after importing it.
+ *
+ * ```html
+ * <material-paper-color-picker></material-paper-color-picker>
+ * ```
+ *
+ * ### Hide primary or secondary color container
+ *
+ * In order to have only one container of colors that will be the full size of the popup, 
+ * you have to hide the other primary or secondary color container.
+ *
+ * ```html
+ * <material-paper-color-picker hide-primary="true"></material-paper-color-picker>
+ * <material-paper-color-picker hide-secondary="true"></material-paper-color-picker>
+ * ```
+ *
+ * ### Show primary and secondary container, but not with default colors
+ *
+ * In order to show both or one of both containers without the default paper-colors,
+ * you can create them as empty containers. You can combine this with hiding the other
+ * container to create one large container for your custom colors.
+ *
+ * ```html
+ * <material-paper-color-picker empty-primary="true"></material-paper-color-picker>
+ * <material-paper-color-picker empty-secondary="true"></material-paper-color-picker>
+ * ```
+ *
+ * ###Adding custom colors
+ *
+ * If you want to add custom colors, you can add `<color-selector>` elements. Those elements represent the colors a
+ * user can choose from. If you don't remove the primary or secondary colors, there will be several `<color-selector>`
+ * elements presented by default.
+ *
+ * ```html
+ * <material-paper-color-picker empty-primary="true" hide-secondary="true">
+ *   <color-selector 
+ *       name="Custom color"
+ *       target="primary" 
+ *       normal-color="red" 
+ *       normal-font-color="white" 
+ *       normal-head-font-color="white"
+ *       light-color="lightred" 
+ *       light-font-color="black" 
+ *       light-head-font-color="black" 
+ *       dark-color="darkred" 
+ *       dark-font-color="white"
+ *       dark-head-font-color="lightgrey"
+ *       slot="primary">
+ *   </color-selector>
+ * </material-paper-color-picker>
+ * ```
+ *
+ * For more details on the color-selector element, check out `<color-selector>` in the elements menu.
+ *
+ * ### Popup alignment
+ *
+ * You can align the popup relative to the button that toggles the visibility.
+ *
+ * ```html
+ * <material-paper-color-picker align="left"></material-paper-color-picker>
+ * <material-paper-color-picker align="center"></material-paper-color-picker>
+ * <material-paper-color-picker align="right"></material-paper-color-picker>
+ * ```
+ *
+ * ### Icon
+ *
+ * You can choose a custom icon from the iron-icons.
+ *
+ * ```html
+ * <material-paper-color-picker icon="settings"></material-paper-color-picker>
+ * ```
+ *
+ *  If you want other icons then the default icons, you will have to import those icons before using them.
+ *
+ * ```html
+ * <link rel="import" href="bower_components/iron-icons/maps-icons.html">
+ * <material-paper-color-picker icon="maps:directions-bus"></material-paper-color-picker>
+ * ```
+ *
+ * ### Titles
+ *
+ * You can specify your own title for the primary and secondary container:
+ *
+ * ```html
+ * <material-paper-color-picker primary-title="Wedding colors"></material-paper-color-picker>
+ * <material-paper-color-picker secondary-title="Fantasy colors"></material-paper-color-picker>
+ * ```
+ *
+ * ### Styling
+ *
+ * The following custom properties and mixins are available for styling:
+ *
+ * Custom property | Description | Default
+ * ----------------|-------------|----------
+ * `--icon-color` | The color of the icon | `black`
+ * `--icon-background-color` | The background color of the icon | `rgba(0,0,0,0.1)`
+ * `--icon-border-radius` | The border radius | `50%`
+ * `--popup-background-color` | The background color of the popup window | `white`
+ * `--popup-text-color` | The text color of the popup window | `black`
+ *
+ * This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+ * In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
+ *
  * `material-paper-color-picker`
  * Paper color picker including fonts
  */
