@@ -101,6 +101,17 @@ Custom property | Description | Default
 
 You can also add text to the `<color-selector>` element to preview `--{target}-font-normal`:
 
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="color-selector.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <color-selector>
     Abc.
@@ -342,7 +353,7 @@ footer {
 }
 ```
 
-### <\color-selector\> Name
+### \<color-selector\> Name
 
 The name of the color is only used as references for the user => they appear in the
 tooltip and have no technical value.
