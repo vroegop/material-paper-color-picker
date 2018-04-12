@@ -10,55 +10,24 @@ The `<material-paper-color-picker>` will load all [Google Material Palette color
 
 To use it, simply add the `<material-paper-color-picker></material-paper-color-picker>` element to your page after importing it.
 
-#### Removing default colors
+#### \<material-paper-color-picker\> Removing default colors
 
 The color picker without primary colors:
 
 ```html
-<material-paper-color-picker primary-colors="[]"></material-paper-color-picker>
+<material-paper-color-picker hide-primary="true"></material-paper-color-picker>
 ```
 
 The color picker without secondary colors:
 
 ```html
-<material-paper-color-picker secondary-colors="[]"></material-paper-color-picker>
+<material-paper-color-picker hide-secondary="true"></material-paper-color-picker>
 ```
 
-If you don't want the default primary or secondary colors, that container is hidden. That means that if you don't want
-secondary colors, there is one large container with primary colors to choose from.
-
-If you don't want the default colors, but you do want the color container because you specify your
-own colors, you have to tell the element that the container must be visible. You can do this by passing a `true` value
-inside the array of that color. So if you don't want the default secondary colors because you specify your own, use the following
-syntax to make sure the container is visible:
+If you want to add your own \<color-selector\> elements, don't hide the color containers. Instead, you can empty them:
 
 ```html
-<material-paper-color-picker secondary-colors="[true]"></material-paper-color-picker>
-```
-
-#### Adding custom colors
-
-If you want to add custom colors, you can add `<color-selector>` elements. Those elements represent the colors a
-user can choose from. If you don't remove the primary or secondary colors, there will be several `<color-selector>`
-elements presented by default.
-
-```html
-<material-paper-color-picker>
-    <color-selector 
-        name="Custom color"
-        target="primary" 
-        normal-color="red" 
-        normal-font-color="white" 
-        normal-head-font-color="white"
-        light-color="lightred" 
-        light-font-color="black" 
-        light-head-font-color="black" 
-        dark-color="darkred" 
-        dark-font-color="white"
-        dark-head-font-color="lightgrey"
-        slot="primary">
-    </color-selector>
-</material-paper-color-picker>
+<material-paper-color-picker empty-primary="true" empty-secondary="true"></material-paper-color-picker>
 ```
 
 ### \<color-selector\>
@@ -103,6 +72,31 @@ You can also add text to the `<color-selector>` element to display normal font c
 </color-selector>
 ```
 
+#### \<material-paper-color-picker\> Adding custom colors
+
+If you want to add custom colors, you can add `<color-selector>` elements. Those elements represent the colors a
+user can choose from. If you don't remove the primary or secondary colors, there will be several `<color-selector>`
+elements presented by default.
+
+```html
+<material-paper-color-picker empty-primary="true" hide-secondary="true">
+    <color-selector 
+        name="Custom color"
+        target="primary" 
+        normal-color="red" 
+        normal-font-color="white" 
+        normal-head-font-color="white"
+        light-color="lightred" 
+        light-font-color="black" 
+        light-head-font-color="black" 
+        dark-color="darkred" 
+        dark-font-color="white"
+        dark-head-font-color="lightgrey"
+        slot="primary">
+    </color-selector>
+</material-paper-color-picker>
+```
+
 #### \<material-paper-color-picker\> Popup alignment
 
 You can pick several alignments for the popup if you use the popup container:
@@ -111,6 +105,21 @@ You can pick several alignments for the popup if you use the popup container:
 <material-paper-color-picker align="left"></material-paper-color-picker>
 <material-paper-color-picker align="center"></material-paper-color-picker>
 <material-paper-color-picker align="right"></material-paper-color-picker>
+```
+
+#### \<material-paper-color-picker\> Custom icon
+
+The default icon is an opacity icon. You can choose any icon from the default `iron-icon` selection.
+
+```html
+<material-paper-color-picker icon="settings"></material-paper-color-picker>
+```
+
+If you want to use other icons, for example Google Maps icons, you will have to import that library yourself.
+
+```html
+<link rel="import" href="bower_components/iron-icons/maps-icons.html">
+<material-paper-color-picker icon="maps:directions-bus"></material-paper-color-picker>
 ```
 
 #### \<material-paper-color-picker\> Primary and secondary container titles
@@ -192,7 +201,7 @@ footer {
 }
 ```
 
-#### Name
+#### <\color-selector\> Name
 
 The name of the color is only used as references for the user => they appear in the
 tooltip and have no technical value.
@@ -224,7 +233,7 @@ colors to choose from. Please use the Google Material Palette if you are unsure 
 your chosen colors. Have a look at [Google Material Guidelines](https://material.io/guidelines/) for extended
 reading material on colors and material design.
 
-### Styling the color picker
+### \<material-paper-color-picker\> Styling the color picker container and icon
 Style the color picker icon and layout by overriding css variables:
 
 ```css

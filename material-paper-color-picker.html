@@ -119,7 +119,8 @@
     </style>
 
     <div class="color-adjuster" color-picker$="[[cpOpen]]">
-      <paper-icon-button class="menubutton" icon="opacity" on-click="toggleColorPicker"></paper-icon-button>
+      <paper-icon-button class="menubutton" icon="[[icon]]" on-click="toggleColorPicker"></paper-icon-button>
+
       <div class="color-picker" id="colorPicker" size$="large-[[!_bothColors()]]">
         <template is="dom-if" if="{{!hidePrimary}}">
           <p>[[primaryTitle]]</p>
@@ -985,6 +986,10 @@
           hideSecondary: {
             type: Boolean,
             value: false
+          },
+          icon: {
+            type: String,
+            value: "opacity"
           }
         };
       }

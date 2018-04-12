@@ -1,0 +1,16 @@
+{
+    "name": "material-paper-color-picker",
+    "private": false,
+    "description": "A material design paper-color picker",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/vroegop/material-paper-color-picker"
+    },
+    "license": "APACHE 2.0",
+    "devDependencies": {
+        "@polymer/gen-typescript-declarations": "1.1.1"
+    },
+    "scripts": {
+        "update-types": "gen-typescript-declarations --deleteExisting --outDir ."
+    }
+}
