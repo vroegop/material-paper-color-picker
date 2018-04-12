@@ -10,16 +10,53 @@ The `<material-paper-color-picker>` will load all [Google Material Palette color
 
 To use it, simply add the `<material-paper-color-picker></material-paper-color-picker>` element to your page after importing it.
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+<material-paper-color-picker></material-paper-color-picker>
+```
+
 #### \<material-paper-color-picker\> Removing default colors
 
 The color picker without primary colors:
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <material-paper-color-picker hide-primary="true"></material-paper-color-picker>
 ```
 
 The color picker without secondary colors:
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <material-paper-color-picker hide-secondary="true"></material-paper-color-picker>
 ```
@@ -40,6 +77,17 @@ of the `<color-selector>` is `50px`.
 
 You will need to specify every color you want seperately. An example of a full-fledged selector:
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="color-selector.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <color-selector 
     name="Custom color" 
@@ -78,6 +126,17 @@ If you want to add custom colors, you can add `<color-selector>` elements. Those
 user can choose from. If you don't remove the primary or secondary colors, there will be several `<color-selector>`
 elements presented by default.
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <material-paper-color-picker empty-primary="true" hide-secondary="true">
     <color-selector 
@@ -101,6 +160,17 @@ elements presented by default.
 
 You can pick several alignments for the popup if you use the popup container:
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <material-paper-color-picker align="left"></material-paper-color-picker>
 <material-paper-color-picker align="center"></material-paper-color-picker>
@@ -111,12 +181,34 @@ You can pick several alignments for the popup if you use the popup container:
 
 The default icon is an opacity icon. You can choose any icon from the default `iron-icon` selection.
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <material-paper-color-picker icon="settings"></material-paper-color-picker>
 ```
 
 If you want to use other icons, for example Google Maps icons, you will have to import that library yourself.
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <link rel="import" href="bower_components/iron-icons/maps-icons.html">
 <material-paper-color-picker icon="maps:directions-bus"></material-paper-color-picker>
@@ -126,6 +218,17 @@ If you want to use other icons, for example Google Maps icons, you will have to 
 
 You can specify your own title for the primary and secondary container:
 
+<!---
+```
+<custom-element-demo>
+  <template>
+  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <material-paper-color-picker primary-title="Wedding colors"></material-paper-color-picker>
 <material-paper-color-picker secondary-title="Fantasy colors"></material-paper-color-picker>
