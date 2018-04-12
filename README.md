@@ -83,15 +83,22 @@ You will need to specify every color you want seperately. An example of a full-f
 </color-selector>
 ```
 
-* name => the title of the color (this becomes the tooltip)
-* target => the target color to change (primary or secondary, or choose your own)
-* normal-color => the default color for your elements (for example featured content)
-* light-color => the light color for your elements (for example a footer)
-* dark-color => the dark color for your elements (for example a header)
-* font-color => the font-color for regular fonts
-* head-font-color => if you want headings to have a different color then the regular text
+Custom property | Description | Default
+----------------|-------------|----------
+`name` | The name of the color, this shows up in the tooltip | `Color`
+`target` | The name of the target CSS rule to change (`--{target}-color-normal`) | `primary`
+`normal-color` | The color for --{target}-color-normal | `undefined`
+`normal-font` | The color for --{target}-font-normal | `undefined`
+`normal-head-font` | The color for --{target}-head-font-normal | `undefined`
+`light-color` | The color for --{target}-color-light | `undefined`
+`light-font` | The color for --{target}-font-light | `undefined`
+`light-head-font` | The color for --{target}-head-font-light | `undefined`
+`dark-color` | The color for --{target}-color-dark | `undefined`
+`dark-font` | The color for --{target}-font-dark | `undefined`
+`dark-head-font` | The color for --{target}-head-font-dark | `undefined`
+`slot` | the slot to put this element into, if used with `material-paper-color-picker` | `undefined`
 
-You can also add text to the `<color-selector>` element to display normal font color:
+You can also add text to the `<color-selector>` element to preview `--{target}-font-normal`:
 
 ```html
 <color-selector>
