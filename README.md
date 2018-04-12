@@ -172,6 +172,37 @@ You can pick several alignments for the popup if you use the popup container:
 <material-paper-color-picker align="left"></material-paper-color-picker>
 ```
 
+### \<material-paper-color-picker\> Styling
+
+You can create your own style for the popup and icon:
+
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="material-paper-color-picker.html">
+    <style>
+    material-paper-color-picker:first-child { margin: 0 20px 340px 200px }
+    material-paper-color-picker { margin: 0 20px 340px 0 }    
+    </style>
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+<style>
+    --icon-color: blue;
+    --icon-background-color: orange;
+    --icon-border-radius: 5px;
+    --popup-background-color: rgba(0,0,0,0.5);
+    --popup-text-color: white;
+</style>
+
+<material-paper-color-picker class="custom"></material-paper-color-picker>
+```
+
 ### \<material-paper-color-picker\> Custom icon
 
 The default icon is an opacity icon. You can choose any icon from the default `iron-icon` selection.
