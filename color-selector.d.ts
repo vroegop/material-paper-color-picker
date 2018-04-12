@@ -36,6 +36,14 @@
  * </color-selector>
  * ```
  *
+ * You can also add text to the `<color-selector>` element to preview `--{target}-font-normal`:
+ *
+ * ```html
+ * <color-selector>
+ *     Abc.
+ * </color-selector>
+ * ```
+ *
  * Note that not all properties need to be set. You can also choose to change the header-style only.
  * If you are using the `material-paper-color-picker` element, all of the properties are set if you the use default colors.
  *
