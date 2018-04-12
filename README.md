@@ -1,4 +1,7 @@
+
 # \<material-paper-color-picker\>
+
+[![Build Status](https://travis-ci.org/vroegop/material-paper-color-picker.svg?branch=master)](https://travis-ci.org/vroegop/material-paper-color-picker)
 
 Paper color picker including fonts
 
