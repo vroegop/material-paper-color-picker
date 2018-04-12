@@ -1,6 +1,7 @@
 {
     "name": "material-paper-color-picker",
     "private": false,
+    "version": "0.2.0",
     "description": "A material design paper-color picker",
     "repository": {
         "type": "git",
