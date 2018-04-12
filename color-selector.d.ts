@@ -43,18 +43,18 @@
  *
  * Custom property | Description | Default
  * ----------------|-------------|----------
- * `name` | The name of the color, this shows up in the tooltip | `Color`
- * `target` | The name of the target CSS rule to change (`--{target}-color-normal`) | `primary`
- * `normal-color` | The color for --{target}-color-normal | `undefined`
- * `normal-font` | The color for --{target}-font-normal | `undefined`
- * `normal-head-font` | The color for --{target}-head-font-normal | `undefined`
- * `light-color` | The color for --{target}-color-light | `undefined`
- * `light-font` | The color for --{target}-font-light | `undefined`
- * `light-head-font` | The color for --{target}-head-font-light | `undefined`
- * `dark-color` | The color for --{target}-color-dark | `undefined`
- * `dark-font` | The color for --{target}-font-dark | `undefined`
- * `dark-head-font` | The color for --{target}-head-font-dark | `undefined`
- * `slot` | the slot to put this element into, if used with `material-paper-color-picker` | `undefined`
+ * `name` | The title, this shows up in the tooltip | `Color`
+ * `target` | The target CSS rule (`--{target}-color-normal`) | `primary`
+ * `normal-color` | --{target}-color-normal | `undefined`
+ * `normal-font` | --{target}-font-normal | `undefined`
+ * `normal-head-font` | --{target}-head-font-normal | `undefined`
+ * `light-color` | --{target}-color-light | `undefined`
+ * `light-font` | --{target}-font-light | `undefined`
+ * `light-head-font` | --{target}-head-font-light | `undefined`
+ * `dark-color` | --{target}-color-dark | `undefined`
+ * `dark-font` | --{target}-font-dark | `undefined`
+ * `dark-head-font` | --{target}-head-font-dark | `undefined`
+ * `slot` | the slot to put this element into | `undefined`
  *
  * `color-selector`
  * Paper color picker including fonts

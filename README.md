@@ -2,6 +2,7 @@
 # \<material-paper-color-picker\>
 
 [![Build Status](https://travis-ci.org/vroegop/material-paper-color-picker.svg?branch=master)](https://travis-ci.org/vroegop/material-paper-color-picker)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/vroegop/material-paper-color-picker)
 
 Paper color picker including fonts
 

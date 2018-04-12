@@ -47,7 +47,7 @@
  * <material-paper-color-picker empty-secondary="true"></material-paper-color-picker>
  * ```
  *
- * ###Adding custom colors
+ * ### Adding custom colors
  *
  * If you want to add custom colors, you can add `<color-selector>` elements. Those elements represent the colors a
  * user can choose from. If you don't remove the primary or secondary colors, there will be several `<color-selector>`
