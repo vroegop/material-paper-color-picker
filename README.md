@@ -212,7 +212,7 @@ If you want to use other icons, for example Google Maps icons, you will have to 
 ```
 -->
 ```html
-<link rel="import" href="bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../iron-icons/maps-icons.html">
 <material-paper-color-picker icon="maps:directions-bus"></material-paper-color-picker>
 ```
 
