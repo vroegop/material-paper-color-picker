@@ -64,8 +64,13 @@ Remember color
             colorPicked(e) {
                 const oldColor = this.getOldColor();
                 const newColor = e.detail;
+                // strip undefined values using short-circuit
+                Object.keys(newColor).forEach(key => {
+                    if (typeof newColor[key] !== 'string' || newColor[key].trim() === '') {
+                        delete newColor[key];
+                    }
+                });
                 const concatColor = Object.assign({}, oldColor, newColor);
-
                 window.localStorage.setItem('color-picked', JSON.stringify(concatColor));
                 this.setColors(e.detail);
             }

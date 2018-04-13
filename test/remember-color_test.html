@@ -23,42 +23,17 @@
 
     <script>
         suite('<remember-color>', () => {
-            function _removeCookie(name) {
-                let cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
-                document.cookie = cookie;
-            }
-
-            function _setCookie(name, color) {
-                let cookie = `${name}=${color};expires=${new Date(new Date().setDate(new Date().getDate() + 365))};path=/`;
-                document.cookie = cookie;
-            }
-
-            function _getCookie(name) {
-                const cookies = decodeURIComponent(document.cookie);
-                try {
-                    const colorPicked = cookies.split(';').find(part => ~part.indexOf(name)).trim().substr(name.length + 1);
-                    return colorPicked;
-                } catch (err) {
-                    return undefined;
-                }
-            }
 
             suiteSetup(function () {
-                // save old cookie to prevent tests from breaking production
-                document.oldCookie = _getCookie('color-picked');
                 document.oldStorage = localStorage.getItem('color-picked');
-                _removeCookie('color-picked');
                 localStorage.clear();
             });
 
             suiteTeardown(function () {
-                // reset old cookie to reset production value
-                _setCookie('color-picked', document.oldCookie);
                 localStorage.setItem('color-picked', document.oldStorage);
             });
 
             setup(function () {
-                _removeCookie('color-picked');
                 localStorage.clear();
             });
 
@@ -100,8 +75,12 @@
                 const element = fixture('BasicRememberColor');
 
                 const BasicRememberColor = {
-                    '--primary-color-light': 'BasicRememberColor',
-                    '--primary-color-normal': 'BasicRememberColor'
+                    '--undefined-color-light': 'BasicRememberColor',
+                    '--null-color-dark': 'BasicRememberColor',
+                    '--NewRememberColor-color-normal': 'BasicRememberColor',
+                    '--0-text-normal': 'BasicRememberColor',
+                    '--NaN-text-light': 'BasicRememberColor',
+                    '--false-text-dark': 'BasicRememberColor',
                 };
 
                 const BasicRememberColorEvent = new CustomEvent('color-picked', { detail: BasicRememberColor });
@@ -111,11 +90,13 @@
                     const storedColorsString = window.localStorage.getItem('color-picked');
                     const storedColors = JSON.parse(storedColorsString);
 
-                    assert.equal(storedColors['--primary-color-normal'], BasicRememberColor['--primary-color-normal'], '--primary-color-normal after first event');
-                    assert.equal(storedColors['--primary-color-light'], BasicRememberColor['--primary-color-light'], '--primary-color-light after first event');
-
                     const NewRememberColor = {
-                        '--primary-color-light': 'NewRememberColor'
+                        '--undefined-color-light': undefined,
+                        '--null-color-dark': null,
+                        '--NewRememberColor-color-normal': 'NewRememberColor',
+                        '--0-text-normal': 0,
+                        '--NaN-text-light': NaN,
+                        '--false-text-dark': false,
                     };
 
                     const NewRememberColorEvent = new CustomEvent('color-picked', { detail: NewRememberColor });
@@ -125,8 +106,12 @@
                         const storedColorsString = window.localStorage.getItem('color-picked');
                         const storedColors = JSON.parse(storedColorsString);
 
-                        assert.equal(storedColors['--primary-color-normal'], BasicRememberColor['--primary-color-normal'], '--primary-color-normal after second event');
-                        assert.equal(storedColors['--primary-color-light'], NewRememberColor['--primary-color-light'], '--primary-color-normal after second event');
+                        assert.equal(storedColors['--NewRememberColor-color-normal'], NewRememberColor['--NewRememberColor-color-normal'], '--NewRememberColor-color-normal after second event');
+                        assert.equal(storedColors['--undefined-color-light'], BasicRememberColor['--undefined-color-light'], '--undefined-color-light after second event');
+                        assert.equal(storedColors['--null-color-dark'], BasicRememberColor['--null-color-dark'], '--null-color-dark after second event');
+                        assert.equal(storedColors['--0-text-normal'], BasicRememberColor['--0-text-normal'], '--0-text-normal after second event');
+                        assert.equal(storedColors['--NaN-text-light'], BasicRememberColor['--NaN-text-light'], '--NaN-text-light after second event');
+                        assert.equal(storedColors['--false-text-dark'], BasicRememberColor['--false-text-dark'], '--false-text-dark after second event');
 
                         done();
                     });
