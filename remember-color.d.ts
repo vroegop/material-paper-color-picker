@@ -17,6 +17,10 @@
  * Remembers the color you picked with the color-selector
  */
 declare class RememberColor extends Polymer.Element {
+  connectedCallback(): any;
+  getOldColor(): any;
+  colorPicked(e: any): any;
+  setColors(color: any): any;
 }
 
 interface HTMLElementTagNameMap {

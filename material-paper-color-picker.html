@@ -14,6 +14,7 @@ limitations under the License.
 
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="./color-selector.html">
+<link rel="import" href="./remember-color.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 
@@ -243,6 +244,8 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         }
       }
     </style>
+
+    <remember-color></remember-color>
 
     <div class="color-adjuster" color-picker$="[[cpOpen]]">
       <paper-icon-button class="menubutton" icon="[[icon]]" on-click="toggleColorPicker"></paper-icon-button>

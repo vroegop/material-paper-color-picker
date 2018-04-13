@@ -161,23 +161,28 @@ Custom property | Description | Default
             }
 
             changeColor() {
-                let html = document.documentElement;
+                const html = document.documentElement;
 
-                this.lightColor === undefined || html.style.setProperty(`--${this.target}-color-light`, this.lightColor);
-                this.normalColor === undefined || html.style.setProperty(`--${this.target}-color-normal`, this.normalColor);
-                this.darkColor === undefined || html.style.setProperty(`--${this.target}-color-dark`, this.darkColor);
+                const colorDetails = {
+                    [`--${this.target}-color-light`]: this.lightColor,
+                    [`--${this.target}-color-normal`]: this.normalColor,
+                    [`--${this.target}-color-dark`]: this.darkColor,
+                    [`--${this.target}-text-light`]: this.lightFontColor,
+                    [`--${this.target}-text-normal`]: this.normalFontColor,
+                    [`--${this.target}-text-dark`]: this.darkFontColor,
+                    [`--${this.target}-head-text-light`]: this.lightHeadFontColor,
+                    [`--${this.target}-head-text-normal`]: this.normalHeadFontColor,
+                    [`--${this.target}-head-text-dark`]: this.darkHeadFontColor
+                };
 
-                this.lightFontColor === undefined || html.style.setProperty(`--${this.target}-text-light`, this.lightFontColor);
-                this.normalFontColor === undefined || html.style.setProperty(`--${this.target}-text-normal`, this.normalFontColor);
-                this.darkFontColor === undefined || html.style.setProperty(`--${this.target}-text-dark`, this.darkFontColor);
+                for (const key of Object.keys(colorDetails)) {
+                    if (colorDetails[key] !== undefined) {
+                        html.style.setProperty(key, colorDetails[key]);
+                    }
+                }
 
-                this.lightHeadFontColor === undefined || html.style.setProperty(`--${this.target}-head-text-light`, this.lightHeadFontColor);
-                this.normalHeadFontColor === undefined || html.style.setProperty(`--${this.target}-head-text-normal`, this.normalHeadFontColor);
-                this.darkHeadFontColor === undefined || html.style.setProperty(`--${this.target}-head-text-dark`, this.darkHeadFontColor);
-            }
-
-            _isPrimary() {
-                return this.target === 'primary';
+                const clrEvent = new CustomEvent('color-picked', { detail: colorDetails });
+                document.dispatchEvent(clrEvent);
             }
         }
 

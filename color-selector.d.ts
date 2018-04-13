@@ -80,7 +80,6 @@ declare class ColorSelector extends Polymer.Element {
   lightHeadFontColor: string|null|undefined;
   target: string|null|undefined;
   changeColor(): any;
-  _isPrimary(): any;
 }
 
 interface HTMLElementTagNameMap {

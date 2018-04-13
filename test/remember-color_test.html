@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>&lt;material-paper-color-picker&gt; test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../remember-color.html">
+</head>
+
+<body>
+
+    <test-fixture id="BasicRememberColor">
+        <template>
+            <remember-color></remember-color>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('<remember-color>', () => {
+            function _removeCookie(name) {
+                let cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+                document.cookie = cookie;
+            }
+
+            function _setCookie(name, color) {
+                let cookie = `${name}=${color};expires=${new Date(new Date().setDate(new Date().getDate() + 365))};path=/`;
+                document.cookie = cookie;
+            }
+
+            function _getCookie(name) {
+                const cookies = decodeURIComponent(document.cookie);
+                try {
+                    const colorPicked = cookies.split(';').find(part => ~part.indexOf(name)).trim().substr(name.length + 1);
+                    return colorPicked;
+                } catch (err) {
+                    return undefined;
+                }
+            }
+
+            suiteSetup(function () {
+                // save old cookie to prevent tests from breaking production
+                document.oldCookie = _getCookie('color-picked');
+                document.oldStorage = localStorage.getItem('color-picked');
+                _removeCookie('color-picked');
+                localStorage.clear();
+            });
+
+            suiteTeardown(function () {
+                // reset old cookie to reset production value
+                _setCookie('color-picked', document.oldCookie);
+                localStorage.setItem('color-picked', document.oldStorage);
+            });
+
+            setup(function () {
+                _removeCookie('color-picked');
+                localStorage.clear();
+            });
+
+            test('instantiating the element with default properties works', () => {
+                const element = fixture('BasicRememberColor');
+                assert.equal(element.tagName, 'REMEMBER-COLOR');
+            });
+
+            test('Dispatching the color-picked event sets localStorage keys', (done) => {
+                const element = fixture('BasicRememberColor');
+
+                const colorDetails = {
+                    '--primary-color-light': 'BasicRememberColor',
+                    '--primary-color-normal': 'BasicRememberColor',
+                    '--primary-color-dark': 'BasicRememberColor',
+                    '--primary-text-light': 'BasicRememberColor',
+                    '--primary-text-normal': 'BasicRememberColor',
+                    '--primary-text-dark': 'BasicRememberColor',
+                    '--primary-head-text-light': 'BasicRememberColor',
+                    '--primary-head-text-normal': 'BasicRememberColor',
+                    '--primary-head-text-dark': 'BasicRememberColor'
+                };
+
+                const clrEvent = new CustomEvent('color-picked', { detail: colorDetails });
+                document.dispatchEvent(clrEvent);
+
+                flush(function () {
+                    const storedColorsString = window.localStorage.getItem('color-picked');
+                    const storedColors = JSON.parse(storedColorsString);
+
+                    for (let key of Object.keys(storedColors)) {
+                        assert.equal(storedColors[key], colorDetails[key]);
+                    }
+                    done();
+                });
+            });
+
+            test('Dispatching the color-picked event sets localStorage keys but does not override old ones', (done) => {
+                const element = fixture('BasicRememberColor');
+
+                const BasicRememberColor = {
+                    '--primary-color-light': 'BasicRememberColor',
+                    '--primary-color-normal': 'BasicRememberColor'
+                };
+
+                const BasicRememberColorEvent = new CustomEvent('color-picked', { detail: BasicRememberColor });
+                document.dispatchEvent(BasicRememberColorEvent);
+
+                flush(function BasicRememberColorEventFired() {
+                    const storedColorsString = window.localStorage.getItem('color-picked');
+                    const storedColors = JSON.parse(storedColorsString);
+
+                    assert.equal(storedColors['--primary-color-normal'], BasicRememberColor['--primary-color-normal'], '--primary-color-normal after first event');
+                    assert.equal(storedColors['--primary-color-light'], BasicRememberColor['--primary-color-light'], '--primary-color-light after first event');
+
+                    const NewRememberColor = {
+                        '--primary-color-light': 'NewRememberColor'
+                    };
+
+                    const NewRememberColorEvent = new CustomEvent('color-picked', { detail: NewRememberColor });
+                    document.dispatchEvent(NewRememberColorEvent);
+
+                    flush(function NewRememberColorEventFired() {
+                        const storedColorsString = window.localStorage.getItem('color-picked');
+                        const storedColors = JSON.parse(storedColorsString);
+
+                        assert.equal(storedColors['--primary-color-normal'], BasicRememberColor['--primary-color-normal'], '--primary-color-normal after second event');
+                        assert.equal(storedColors['--primary-color-light'], NewRememberColor['--primary-color-light'], '--primary-color-normal after second event');
+
+                        done();
+                    });
+                })
+            });
+
+            test('Simply loading in the element will set the CSS variables to prior selected values from localStorage', (done) => {
+                const colorPickedString = JSON.stringify({
+                    '--primary-color-light': 'a',
+                    '--primary-color-normal': 'b',
+                    '--primary-color-dark': 'c',
+                    '--primary-text-light': 'd',
+                    '--primary-text-normal': 'e',
+                    '--primary-text-dark': 'f',
+                    '--primary-head-text-light': 'g',
+                    '--primary-head-text-normal': 'e',
+                    '--primary-head-text-dark': 'f'
+                });
+
+                localStorage.setItem('color-picked', colorPickedString);
+
+                const element = fixture('BasicRememberColor');
+
+                flush(function () {
+                    const storedColorsString = window.localStorage.getItem('color-picked');
+                    const storedColors = JSON.parse(storedColorsString);
+
+                    for (let key of Object.keys(storedColors)) {
+                        const htmlStyle = getComputedStyle(document.documentElement).getPropertyValue(key);
+                        assert.equal(storedColors[key], htmlStyle, 'html style equals stored style');
+                    }
+
+                    done();
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

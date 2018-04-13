@@ -241,6 +241,123 @@
                     done();
                 })
             });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-color-normal', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-color-normal'], 'red');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-color-light', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-color-light'], 'lightred');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-color-dark', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-color-dark'], 'darkred');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-text-normal', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-text-normal'], 'black');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-text-light', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-text-light'], 'darkgrey');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-text-dark', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-text-dark'], 'grey');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-head-text-normal', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-head-text-normal'], 'black');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-head-text-light', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-head-text-light'], 'darkgrey');
+                    done();
+                })
+            });
+
+            test('Clicking the color will dispatch the color-picked event with --{target}-head-text-dark', (done) => {
+                const element = fixture('CustomColorSelectorPrimary');
+                let event;
+                document.addEventListener('color-picked', e => event = e);
+                element.$.color.click();
+
+                flush(function () {
+                    let selectedColor = event.detail;
+                    assert.equal(selectedColor['--primary-head-text-dark'], 'grey');
+                    done();
+                })
+            });
         });
     </script>
 

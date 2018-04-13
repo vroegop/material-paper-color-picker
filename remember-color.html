@@ -39,8 +39,46 @@ Remember color
             static get is() { return 'remember-color'; }
             static get properties() {
                 return {
-
                 };
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+
+                document.addEventListener('color-picked', this.colorPicked.bind(this));
+                const oldColor = this.getOldColor();
+                this.setColors(oldColor);
+            }
+
+            getOldColor() {
+                const oldColor = window.localStorage.getItem('color-picked');
+                if (oldColor !== undefined) {
+                    try {
+                        return JSON.parse(oldColor);
+                    } catch (err) {
+                        return undefined;
+                    }
+                }
+            }
+
+            colorPicked(e) {
+                const oldColor = this.getOldColor();
+                const newColor = e.detail;
+                const concatColor = Object.assign({}, oldColor, newColor);
+
+                window.localStorage.setItem('color-picked', JSON.stringify(concatColor));
+                this.setColors(e.detail);
+            }
+
+            setColors(color) {
+                const html = document.documentElement;
+                if (color) {
+                    for (const key of Object.keys(color)) {
+                        if (color[key] !== undefined) {
+                            html.style.setProperty(key, color[key]);
+                        }
+                    }
+                }
             }
         }
 

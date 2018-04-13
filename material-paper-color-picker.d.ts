@@ -10,6 +10,7 @@
 
 /// <reference path="../polymer/types/polymer-element.d.ts" />
 /// <reference path="color-selector.d.ts" />
+/// <reference path="remember-color.d.ts" />
 /// <reference path="../paper-icon-button/paper-icon-button.d.ts" />
 /// <reference path="../iron-icons/iron-icons.d.ts" />
 
