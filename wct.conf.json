@@ -1,4 +1,4 @@
-module.exports = {
+{
     "verbose": false,
     "plugins": {
         "sauce": {
@@ -21,22 +21,24 @@ module.exports = {
                 }
             ]
         },
-        istanbub: {
-            disabled: false,
-            dir: './coverage',
-            reporters: ['text-summary', 'lcov'],
-            include: [
-                '**/*.html'
+        "istanbub": {
+            "disabled": false,
+            "dir": "./coverage",
+            "reporters": [
+                "text-summary",
+                "lcov"
             ],
-            exclude: [
-                '/test/**',
-                '/bower_components/**',
-                '/node_modules/**',
-                '/coverage/**',
-                '/demo/**',
-                '/index.html'
+            "include": [
+                "**/*.html"
+            ],
+            "exclude": [
+                "/test/**",
+                "/bower_components/**",
+                "/node_modules/**",
+                "/coverage/**",
+                "/demo/**",
+                "/index.html"
             ]
-
         }
     }
 }

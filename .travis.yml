@@ -13,6 +13,7 @@ addons:
     organization: "vroegop-github"
 before_script:
   - npm install -g polymer-cli
+  - npm install -g wct-istanbub
   - polymer install
   - polymer lint
   - >-
@@ -21,10 +22,7 @@ before_script:
    update-types".' && false)
 script:
   - xvfb-run polymer test
-  - >-
-    if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; 
-    then polymer test --plugin sauce; 
-    fi || true
+  - true || if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test --plugin sauce; fi
   - sonar-scanner
 os: linux
 group: stable
