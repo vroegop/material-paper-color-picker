@@ -24,20 +24,20 @@
     <script>
         suite('<remember-color>', () => {
 
-            function clearCSS() {
-                let expected = {
-                    '--primary-color-light': '',
-                    '--primary-color-normal': '',
-                    '--primary-color-dark': '',
-                    '--primary-text-light': '',
-                    '--primary-text-normal': '',
-                    '--primary-text-dark': '',
-                    '--primary-head-text-light': '',
-                    '--primary-head-text-normal': '',
-                    '--primary-head-text-dark': ''
-                }
+            let emptyCSS = {
+                '--primary-color-light': '',
+                '--primary-color-normal': '',
+                '--primary-color-dark': '',
+                '--primary-text-light': '',
+                '--primary-text-normal': '',
+                '--primary-text-dark': '',
+                '--primary-head-text-light': '',
+                '--primary-head-text-normal': '',
+                '--primary-head-text-dark': ''
+            }
 
-                for (let key of Object.keys(expected)) {
+            function clearCSS() {
+                for (let key of Object.keys(emptyCSS)) {
                     const htmlStyle = document.documentElement.style.setProperty(key, null);
                 }
             }
@@ -168,25 +168,14 @@
             });
 
             test('Empty localstorage colors should not set any css variables', (done) => {
-                let expected = {
-                    '--primary-color-light': '',
-                    '--primary-color-normal': '',
-                    '--primary-color-dark': '',
-                    '--primary-text-light': '',
-                    '--primary-text-normal': '',
-                    '--primary-text-dark': '',
-                    '--primary-head-text-light': '',
-                    '--primary-head-text-normal': '',
-                    '--primary-head-text-dark': ''
-                }
 
                 const element = fixture('BasicRememberColor');
 
                 flush(function () {
 
-                    for (let key of Object.keys(expected)) {
+                    for (let key of Object.keys(emptyCSS)) {
                         const htmlStyle = getComputedStyle(document.documentElement).getPropertyValue(key);
-                        assert.equal(htmlStyle, expected[key]);
+                        assert.equal(htmlStyle, emptyCSS[key]);
                     }
 
                     done();
