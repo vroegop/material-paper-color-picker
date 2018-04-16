@@ -24,6 +24,24 @@
     <script>
         suite('<remember-color>', () => {
 
+            function clearCSS() {
+                let expected = {
+                    '--primary-color-light': '',
+                    '--primary-color-normal': '',
+                    '--primary-color-dark': '',
+                    '--primary-text-light': '',
+                    '--primary-text-normal': '',
+                    '--primary-text-dark': '',
+                    '--primary-head-text-light': '',
+                    '--primary-head-text-normal': '',
+                    '--primary-head-text-dark': ''
+                }
+
+                for (let key of Object.keys(expected)) {
+                    const htmlStyle = document.documentElement.style.setProperty(key, null);
+                }
+            }
+
             suiteSetup(function () {
                 document.oldStorage = localStorage.getItem('color-picked');
                 localStorage.clear();
@@ -35,6 +53,7 @@
 
             setup(function () {
                 localStorage.clear();
+                clearCSS();
             });
 
             test('instantiating the element with default properties works', () => {
@@ -146,6 +165,56 @@
 
                     done();
                 });
+            });
+
+            test('Empty localstorage colors should not set any css variables', (done) => {
+                let expected = {
+                    '--primary-color-light': '',
+                    '--primary-color-normal': '',
+                    '--primary-color-dark': '',
+                    '--primary-text-light': '',
+                    '--primary-text-normal': '',
+                    '--primary-text-dark': '',
+                    '--primary-head-text-light': '',
+                    '--primary-head-text-normal': '',
+                    '--primary-head-text-dark': ''
+                }
+
+                const element = fixture('BasicRememberColor');
+
+                flush(function () {
+
+                    for (let key of Object.keys(expected)) {
+                        const htmlStyle = getComputedStyle(document.documentElement).getPropertyValue(key);
+                        assert.equal(htmlStyle, expected[key]);
+                    }
+
+                    done();
+                });
+            });
+
+            test('Localstorage with another format than JSON should be gracefully handled, not throwing an error and return undefined', () => {
+                // I'm testing the method here, because catching exceptions does not work on DOM manipulations afaik.
+                localStorage.setItem('color-picked', "wrongFormattedJSON");
+
+                const element = fixture('BasicRememberColor');
+
+                expect(element.getOldColor).to.not.throw();
+            });
+
+            test('Localstorage with undefined colors should not set the HTML value to undefined', () => {
+                const element = fixture('BasicRememberColor');
+
+                element.setColors({ '--primary-color-light': undefined });
+                const htmlStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary-color-light');
+
+                expect(htmlStyle).to.equal('');
+            });
+
+            test('Getting the old color when localStorage is empty should return undefined', () => {
+                const element = fixture('BasicRememberColor');
+
+                expect(element.getOldColor()).to.be.undefined;
             });
         });
     </script>

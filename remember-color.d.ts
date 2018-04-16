@@ -11,7 +11,11 @@
 /// <reference path="../polymer/types/polymer-element.d.ts" />
 
 /**
- * Remember color
+ * Remember-color
+ *
+ * This custom element listens to the document level event 'color-picked', which is fired by the color-selector element.
+ * This element will save the picked values in the localstorage. On page-refresh, this element sets the CSS variables based
+ * on the local-storage value.
  *
  * `remember-color`
  * Remembers the color you picked with the color-selector

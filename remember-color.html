@@ -15,8 +15,11 @@ limitations under the License.
 <link rel="import" href="../polymer/polymer-element.html">
 
 <!--
-Remember color
+Remember-color
 
+This custom element listens to the document level event 'color-picked', which is fired by the color-selector element.
+This element will save the picked values in the localstorage. On page-refresh, this element sets the CSS variables based
+on the local-storage value.
 -->
 
 
@@ -47,18 +50,24 @@ Remember color
 
                 document.addEventListener('color-picked', this.colorPicked.bind(this));
                 const oldColor = this.getOldColor();
-                this.setColors(oldColor);
+
+                if (oldColor != undefined) {
+                    this.setColors(oldColor);
+                }
             }
 
             getOldColor() {
                 const oldColor = window.localStorage.getItem('color-picked');
-                if (oldColor !== undefined) {
+                if (oldColor !== undefined && oldColor !== null) {
+                    debugger
                     try {
                         return JSON.parse(oldColor);
                     } catch (err) {
-                        return undefined;
+                        console.debug('color-picked in local storage is not JSON');
                     }
                 }
+                debugger
+                return undefined;
             }
 
             colorPicked(e) {
@@ -77,12 +86,12 @@ Remember color
 
             setColors(color) {
                 const html = document.documentElement;
-                if (color) {
-                    for (const key of Object.keys(color)) {
-                        if (color[key] !== undefined) {
-                            html.style.setProperty(key, color[key]);
-                        }
+                for (const key of Object.keys(color)) {
+                    if (color[key] === undefined) {
+                        continue;
                     }
+
+                    html.style.setProperty(key, color[key]);
                 }
             }
         }

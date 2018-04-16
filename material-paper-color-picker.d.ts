@@ -140,7 +140,9 @@ declare class MaterialPaperColorPicker extends Polymer.Element {
   hideSecondary: boolean|null|undefined;
   icon: string|null|undefined;
   connectedCallback(): any;
-  toggleColorPicker(event: any): any;
+  showColorPicker(e: any): any;
+  hideColorPicker(e: any): any;
+  toggleColorPicker(e: any): any;
   initPickerButton(): any;
   setAlignStyle(): any;
   _bothColors(): any;

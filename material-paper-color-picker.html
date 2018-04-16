@@ -245,8 +245,6 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
       }
     </style>
 
-    <remember-color></remember-color>
-
     <div class="color-adjuster" color-picker$="[[cpOpen]]">
       <paper-icon-button class="menubutton" icon="[[icon]]" on-click="toggleColorPicker"></paper-icon-button>
 
@@ -1123,17 +1121,21 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         };
       }
 
-      toggleColorPicker(event) {
-        event.stopPropagation();
-        this.cpOpen = this.cpOpen === 'visible' ? 'hidden' : 'visible';
+      showColorPicker(e) {
+        this.cpOpen = 'visible';
+      }
+
+      hideColorPicker(e) {
+        this.cpOpen = 'hidden';
+      }
+
+      toggleColorPicker(e) {
+        e.stopPropagation();
+        this.cpOpen === 'visible' ? this.hideColorPicker() : this.showColorPicker()
       }
 
       initPickerButton() {
-        window.addEventListener("click", (e) => {
-          if (this.cpOpen === 'visible') {
-            this.toggleColorPicker(e);
-          }
-        });
+        window.addEventListener("click", this.toggleColorPicker.bind(this));
       }
 
       setAlignStyle() {
