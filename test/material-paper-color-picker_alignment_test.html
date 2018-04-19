@@ -106,6 +106,31 @@
         });
       });
 
+      test('The colorPicker element stays hidden if clicked somewhere else', (done) => {
+        const element = fixture('BasicColorPicker');
+        let colorAdjuster = element.shadowRoot.querySelector('.color-adjuster');
+        element.shadowRoot.querySelector('.menubutton').click();
+        element.shadowRoot.querySelector('.menubutton').click();
+        document.getElementsByTagName("body")[0].click();
+
+        flush(function () {
+          assert.equal(colorAdjuster.getAttribute('color-picker'), 'hidden');
+          done();
+        });
+      });
+
+      test('The colorPicker element becomes hidden if clicked somewhere else', (done) => {
+        const element = fixture('BasicColorPicker');
+        let colorAdjuster = element.shadowRoot.querySelector('.color-adjuster');
+        element.shadowRoot.querySelector('.menubutton').click();
+        document.getElementsByTagName("body")[0].click();
+
+        flush(function () {
+          assert.equal(colorAdjuster.getAttribute('color-picker'), 'hidden');
+          done();
+        });
+      });
+
     });
   </script>
 

@@ -59,14 +59,12 @@ on the local-storage value.
             getOldColor() {
                 const oldColor = window.localStorage.getItem('color-picked');
                 if (oldColor !== undefined && oldColor !== null) {
-                    debugger
                     try {
                         return JSON.parse(oldColor);
                     } catch (err) {
                         console.debug('color-picked in local storage is not JSON');
                     }
                 }
-                debugger
                 return undefined;
             }
 

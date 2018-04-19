@@ -1121,21 +1121,14 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         };
       }
 
-      showColorPicker(e) {
-        this.cpOpen = 'visible';
-      }
-
-      hideColorPicker(e) {
-        this.cpOpen = 'hidden';
-      }
-
       toggleColorPicker(e) {
         e.stopPropagation();
-        this.cpOpen === 'visible' ? this.hideColorPicker() : this.showColorPicker()
+
+        this.cpOpen === 'visible' ? this.cpOpen = 'hidden' : this.cpOpen = 'visible';
       }
 
       initPickerButton() {
-        window.addEventListener("click", this.toggleColorPicker.bind(this));
+        window.addEventListener("click", () => this.cpOpen = 'hidden');
       }
 
       setAlignStyle() {
